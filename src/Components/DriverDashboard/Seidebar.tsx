@@ -1,11 +1,4 @@
-import {
-  FaBox,
-  FaUser,
-  FaSignOutAlt,
-  FaInfoCircle,
-  FaBars,
-  FaTimes,
-} from 'react-icons/fa';
+import { FaBox, FaUser, FaInfoCircle, FaBars, FaTimes } from 'react-icons/fa';
 
 import { useEffect, useState } from 'react';
 import supabase from '../../lib/supabaseClient';

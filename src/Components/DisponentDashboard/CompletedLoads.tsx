@@ -10,30 +10,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
+import { Tables } from '../../types/database.types';
 
-type Driver = {
-  id: string;
-  lastName: string;
-  firstName: string;
-};
-
-type Load = {
-  id: number;
-  company_name: string | null;
-  sender_address: string | null;
-  pickup_date: string | null;
-  delivery_date: string | null;
-  delivery_address: string | null;
-  description: string | null;
-  cargo_type: string | null;
-  cargo_weight: string | null;
-  delivered_at: number | null;
-  loaded_at: string | null;
-  onroad_at: string | null;
-  unloaded_at: string | null;
-  driver: Driver;
-  done?: boolean;
-};
+type Load = Tables<'loads'> & { driver: Tables<'profiles'> | null };
 
 function CompletedLoads() {
   const [loads, setLoads] = useState<Load[]>([]);
@@ -42,9 +21,7 @@ function CompletedLoads() {
     async function fetschFinishedLoads() {
       const { data, error } = await supabase
         .from('loads')
-        .select(
-          'id, company_name, sender_address, delivery_address, pickup_date, delivery_date, cargo_type, description, cargo_weight, done, delivered_at, loaded_at, onroad_at, unloaded_at , driver:driver_id(id,lastName, firstName)'
-        )
+        .select('*, driver:profiles!loads_driver_id_fkey( *)')
         .eq('done', true);
 
       if (error) {
@@ -132,9 +109,9 @@ function CompletedLoads() {
               <div className="flex gap-2">
                 <p className="flex gap-2">
                   <span className="text-black/50">Fahrer:</span>
-                  {index.driver.firstName}
+                  {index.driver!.firstName}
                 </p>
-                <p> {index.driver.lastName}</p>
+                <p> {index.driver!.lastName}</p>
               </div>
             </div>
             <Accordion
@@ -147,7 +124,7 @@ function CompletedLoads() {
                 <AccordionContent className="flex flex-wrap gap-5">
                   <p className="flex gap-2 ">
                     <span className="text-black/50">Beladen:</span>
-                    {new Date(index.loaded_at).toLocaleString('de-De', {
+                    {new Date(index?.loaded_at ?? '').toLocaleString('de-De', {
                       timeZone: 'Europe/Berlin',
                       year: 'numeric',
                       month: '2-digit',
@@ -158,7 +135,7 @@ function CompletedLoads() {
                   </p>
                   <p className="flex gap-2">
                     <span className="text-black/50"> Unterwegs:</span>
-                    {new Date(index.onroad_at).toLocaleString('de-De', {
+                    {new Date(index?.onroad_at ?? '').toLocaleString('de-De', {
                       timeZone: 'Europe/Berlin',
                       year: 'numeric',
                       month: '2-digit',
@@ -169,25 +146,31 @@ function CompletedLoads() {
                   </p>
                   <p className="flex gap-2">
                     <span className="text-black/50"> Entladen:</span>
-                    {new Date(index.unloaded_at).toLocaleString('de-De', {
-                      timeZone: 'Europe/Berlin',
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    {new Date(index?.unloaded_at ?? '').toLocaleString(
+                      'de-De',
+                      {
+                        timeZone: 'Europe/Berlin',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      }
+                    )}
                   </p>
                   <p className="flex gap-2">
                     <span className="text-black/50"> Zugestellt:</span>
-                    {new Date(index.delivered_at).toLocaleString('de-De', {
-                      timeZone: 'Europe/Berlin',
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    {new Date(index?.delivered_at ?? '').toLocaleString(
+                      'de-De',
+                      {
+                        timeZone: 'Europe/Berlin',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      }
+                    )}
                   </p>
                 </AccordionContent>
               </AccordionItem>

@@ -8,18 +8,18 @@ import { ClipLoader } from 'react-spinners';
 
 type Load = {
   id: number;
-  company_name: string;
-  sender_address: string;
-  pickup_date: string;
-  delivery_date: string;
-  delivery_address: string;
-  description: string;
-  cargo_type: string;
-  cargo_weight: string;
+  company_name: string | null;
+  sender_address: string | null;
+  pickup_date: string | null;
+  delivery_date: string | null;
+  delivery_address: string | null;
+  description: string | null;
+  cargo_type: string | null;
+  cargo_weight: string | null;
 };
 
 function EditLoads() {
-  const [value, setValue] = useState<Load>(null);
+  const [value, setValue] = useState<Load | null>(null);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -32,7 +32,7 @@ function EditLoads() {
         .select(
           'id, company_name, sender_address, delivery_address, pickup_date, delivery_date, cargo_type, description, cargo_weight'
         )
-        .eq('id', id)
+        .eq('id', Number(id))
         .single();
 
       if (error) {
@@ -93,7 +93,7 @@ function EditLoads() {
           <Input
             type="text"
             className="border border-black/20 rounded-md p-2 w-full"
-            value={value.company_name}
+            value={value?.company_name ?? ''}
             onChange={(e) =>
               setValue({ ...value, company_name: e.target.value })
             }
@@ -104,7 +104,7 @@ function EditLoads() {
           <Input
             type="text"
             className="border border-black/20 rounded-md p-2 w-full"
-            value={value.sender_address}
+            value={value?.sender_address ?? ''}
             onChange={(e) =>
               setValue({ ...value, sender_address: e.target.value })
             }
@@ -117,7 +117,7 @@ function EditLoads() {
           <Input
             type="date"
             className="border border-black/20 rounded-md p-2 w-full"
-            value={value.pickup_date}
+            value={value?.pickup_date ?? ''}
             onChange={(e) =>
               setValue({ ...value, pickup_date: e.target.value })
             }
@@ -128,7 +128,7 @@ function EditLoads() {
           <Input
             type="text"
             className="border border-black/20 rounded-md p-2 w-full"
-            value={value.delivery_address}
+            value={value?.delivery_address ?? ''}
             onChange={(e) =>
               setValue({ ...value, delivery_address: e.target.value })
             }
@@ -141,7 +141,7 @@ function EditLoads() {
           <Input
             type="date"
             className="border border-black/20 rounded-md p-2 w-full"
-            value={value.delivery_date}
+            value={value?.delivery_date ?? ''}
             onChange={(e) =>
               setValue({ ...value, delivery_date: e.target.value })
             }
@@ -152,7 +152,7 @@ function EditLoads() {
           <Input
             type="text"
             className="border border-black/20 rounded-md p-2 w-full"
-            value={value.cargo_weight}
+            value={value?.cargo_weight ?? ''}
             onChange={(e) =>
               setValue({ ...value, cargo_weight: e.target.value })
             }
@@ -165,7 +165,7 @@ function EditLoads() {
           <Input
             type="text"
             className="border border-black/20 rounded-md p-2 w-full"
-            value={value.cargo_type}
+            value={value?.cargo_type ?? ''}
             onChange={(e) => setValue({ ...value, cargo_type: e.target.value })}
           />
         </div>
@@ -174,7 +174,7 @@ function EditLoads() {
           <Input
             type="text"
             className="border border-black/20 rounded-md p-2 w-full"
-            value={value.description}
+            value={value?.description ?? ''}
             onChange={(e) =>
               setValue({ ...value, description: e.target.value })
             }

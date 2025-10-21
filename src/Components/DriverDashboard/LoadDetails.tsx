@@ -42,7 +42,7 @@ function LoadDetails() {
       const { data, error } = await supabase
         .from('loads')
         .select('*')
-        .eq('id', id)
+        .eq('id', Number(id))
         .single();
 
       if (error) {

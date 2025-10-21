@@ -12,30 +12,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../ui/accordion';
+import { Tables } from '../../../types/database.types';
 
-type Driver = {
-  id: string;
-  lastName: string;
-  firstName: string;
-};
-
-type Load = {
-  id: number;
-  company_name: string;
-  sender_address: string;
-  pickup_date: string;
-  delivery_date: string;
-  delivery_address: string;
-  description: string;
-  cargo_type: string;
-  cargo_weight: string;
-  delivered_at: string;
-  loaded_at: string;
-  onroad_at: string;
-  unloaded_at: string;
-  driver: Driver;
-  done: boolean;
-};
+type Load = Tables<'loads'> & { driver: Tables<'profiles'> | null };
 
 function ActiveLoads() {
   const [loads, setLoads] = useState<Load[]>([]);
@@ -46,15 +25,14 @@ function ActiveLoads() {
     async function fetschDeliveredLoads() {
       const { data, error } = await supabase
         .from('loads')
-        .select(
-          'id, company_name, sender_address, delivery_address, pickup_date, delivery_date, cargo_type, description, cargo_weight, delivered_at, loaded_at, onroad_at, unloaded_at , driver:driver_id(id,lastName, firstName)'
-        )
+        .select('*, driver:profiles!loads_driver_id_fkey( *)')
         .eq('done', false);
+      console.log(data);
 
       if (error) {
         console.log(error);
         toast.error('Etwas ist schief gelaufen');
-      } else {
+      } else if (data) {
         setLoads(data);
         console.log(data);
       }
@@ -100,7 +78,7 @@ function ActiveLoads() {
         loads.map((index) => (
           <Card
             key={index.id}
-            className=" md:w-[80%] flex flex-col  shadow-md p-4 pl-10 hover:shadow-lg transition"
+            className=" md:w-[80%] flex flex-col  shadow-md p-4 pl-10 hover:shadow-lg transition "
           >
             <div className="flex flex-wrap justify-between gap-10">
               <div className="md:w-[80%] flex gap-20 ">
@@ -159,9 +137,9 @@ function ActiveLoads() {
             <div className="flex   gap-3">
               <p className="flex gap-2">
                 <span className="text-black/50">Fahrer:</span>
-                {index.driver.firstName}
+                {index.driver!.firstName}
               </p>
-              <p> {index.driver.lastName}</p>
+              <p> {index.driver!.lastName}</p>
             </div>
             <Accordion
               type="single"

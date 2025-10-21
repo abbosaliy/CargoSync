@@ -2,7 +2,6 @@ import {
   FaBox,
   FaCheckCircle,
   FaUser,
-  FaSignOutAlt,
   FaInfoCircle,
   FaBars,
   FaTimes,

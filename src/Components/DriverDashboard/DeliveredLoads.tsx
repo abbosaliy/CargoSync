@@ -4,20 +4,11 @@ import supabase from '../../lib/supabaseClient';
 import { toast } from 'sonner';
 import { ClipLoader } from 'react-spinners';
 import { Button } from '../ui/button';
+import { Tables } from '../../types/database.types';
 
-type Load = {
-  id: number;
-  company_name: string | null;
-  sender_address: string | null;
-  pickup_date: string | null;
-  delivery_date: string | null;
-  delivery_address: string | null;
-  description: string | null;
-  cargo_type: string | null;
-  cargo_weight: string | null;
-  delivered_at: string | null;
-};
+type Load = Tables<'loads'>;
 
+// Diese Component aktuell nicht verfügbar, das ist nächste version eingeplant
 function DeliveredLoads() {
   const [loads, setLoads] = useState<Load[]>([]);
   const [loading, setLoading] = useState(true);
@@ -34,16 +25,14 @@ function DeliveredLoads() {
 
       const { data, error } = await supabase
         .from('loads')
-        .select(
-          'id, company_name, sender_address, delivery_address, pickup_date, delivery_date, cargo_type, description, cargo_weight, delivered_at'
-        )
+        .select('*')
         .eq('driver_id', user.id)
         .not('delivered_at', 'is', null);
 
       if (error) {
         console.log(error);
         toast.error('Etwas ist schief gelaufen');
-      } else {
+      } else if (data) {
         setLoads(data);
         console.log(data);
       }
@@ -53,18 +42,6 @@ function DeliveredLoads() {
 
     fetschDeliveredLoads();
   }, []);
-
-  async function deleteLoad(id: number) {
-    const { error } = await supabase.from('loads').delete().eq('id', id);
-
-    if (error) {
-      console.log(error);
-      toast.error('Fehler beim Löschen');
-    } else {
-      toast.success('Auftrag wurde gelöscht');
-      setLoads((index) => index.filter((load) => load.id !== id));
-    }
-  }
 
   if (loading)
     return (
@@ -147,7 +124,6 @@ function DeliveredLoads() {
               <Button
                 className="cursor-pointer"
                 variant="destructive"
-                onClick={() => deleteLoad(index.id)}
               >
                 Auftrag Abschließen
               </Button>
