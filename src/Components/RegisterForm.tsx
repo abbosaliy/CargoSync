@@ -23,7 +23,7 @@ function RegisterForm() {
       !lastName ||
       !email ||
       !password ||
-      role! ||
+      !role ||
       !phoneNumber
     ) {
       toast.error('Bitte alle pflichtfelder Ausfüllen');
