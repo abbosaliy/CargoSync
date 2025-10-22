@@ -3,9 +3,9 @@ import SidebarDiponenten from './SeidebarDisponent';
 
 function Disponent() {
   return (
-    <div className="flex flex-col h-screen md:flex-row  p-4 gap-10">
+    <div className="flex  flex-col h-screen md:flex-row  p-4 gap-10">
       <SidebarDiponenten />
-      <div className="w-[100%] h-full overflow-y-auto">
+      <div className="w-full h-full overflow-y-auto">
         <Outlet></Outlet>
       </div>
     </div>

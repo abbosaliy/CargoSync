@@ -8,10 +8,11 @@ import {
 } from 'react-icons/fa';
 
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import supabase from '../../lib/supabaseClient';
 import { Button } from '../ui/button';
 import { FaTruckFast } from 'react-icons/fa6';
+import { VscAccount } from 'react-icons/vsc';
 import { toast } from 'sonner';
 import CustomAlertDialog from '../ui/Dialog';
 
@@ -75,7 +76,17 @@ function SidebarDiponenten() {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } fixed top-0 left-0 md:static md:translate-x-0 `}
       >
-        <div className="self-end">
+        <div className=" absolute left-2 flex justify-center items-center">
+          <img
+            src="/Logistik-App/images/logo.png"
+            alt="CargoSync Logo"
+            className="w-10 h-10"
+          />
+          <h1 className="text-xl font-bold text-[#0C88FF] tracking-wide">
+            CargoSync
+          </h1>
+        </div>
+        <div className="self-end pt-20">
           <Button
             className="md:hidden cursor-pointer"
             onClick={() => setIsOpen(false)}
@@ -83,11 +94,11 @@ function SidebarDiponenten() {
             <FaTimes size={24} />
           </Button>
         </div>
+
         <div className="flex flex-col items-center mb-8">
-          <img
-            src="/Logistik-App/profile.jpg"
-            alt="Profile"
-            className="w-30 h-30 rounded-full object-cover"
+          <VscAccount
+            size={80}
+            color="gray"
           />
           <h2 className="mt-4 text-lg font-semibold flex gap-1">
             <span>{profile.firstName}</span>
@@ -97,46 +108,66 @@ function SidebarDiponenten() {
         </div>
 
         <nav className="flex flex-col   gap-8">
-          <Link
+          <NavLink
             to={'auftrag-erstellen'}
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-lg ${
+                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+              }`
+            }
           >
             <FaBox />
             Aufträge Erstellen
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to={'offene-aufträge'}
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-lg ${
+                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+              }`
+            }
           >
             <FaTruckFast />
             Offene Aufträge
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to={'erledigkte-aufträge'}
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-lg ${
+                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+              }`
+            }
           >
             <FaCheckCircle />
             Erledigkte Aufträge
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to={'personliche-data'}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200"
             onClick={() => setIsOpen(false)}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-lg ${
+                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+              }`
+            }
           >
             <FaUser />
             Persönliche Info
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to={'uber-app'}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200"
             onClick={() => setIsOpen(false)}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-lg ${
+                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+              }`
+            }
           >
             <FaInfoCircle />
             Über App
-          </Link>
+          </NavLink>
           <CustomAlertDialog
             title="Ausloggen bestätigen"
             description="Willst du wirklich raus gehen?"

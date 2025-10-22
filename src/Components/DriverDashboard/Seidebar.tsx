@@ -1,11 +1,11 @@
 import { FaBox, FaUser, FaInfoCircle, FaBars, FaTimes } from 'react-icons/fa';
-
 import { useEffect, useState } from 'react';
 import supabase from '../../lib/supabaseClient';
 import { Button } from '../ui/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import CustomAlertDialog from '../ui/Dialog';
+import { VscAccount } from 'react-icons/vsc';
 
 type Profile = {
   firstName: string | null;
@@ -67,11 +67,21 @@ function Sidebar() {
       </Button>
 
       <aside
-        className={`w-64 lg:w-75 h-full p-4  bg-white border-r border-black/20 justify-around  flex flex-col duration-300 ${
+        className={`w-64 lg:w-75 h-full p-4  bg-white border-r border-black/20 justify-between  flex flex-col duration-300 ${
           open ? 'setOpen-x-0' : '-translate-x-full '
         } fixed top-0 left-0 md:static md:translate-x-0 `}
       >
-        <div className="self-end">
+        <div className=" absolute left-2 flex justify-center items-center">
+          <img
+            src="/Logistik-App/images/logo.png"
+            alt="CargoSync Logo"
+            className="w-10 h-10"
+          />
+          <h1 className="text-xl font-bold text-[#0C88FF] tracking-wide">
+            CargoSync
+          </h1>
+        </div>
+        <div className="self-end pt-20">
           <Button
             className="md:hidden cursor-pointer"
             onClick={() => setOpen(false)}
@@ -80,10 +90,9 @@ function Sidebar() {
           </Button>
         </div>
         <div className="flex flex-col items-center mb-8">
-          <img
-            src="/Logistik-App/profile.jpg"
-            alt="Profile"
-            className="w-30 h-30 rounded-full object-cover"
+          <VscAccount
+            size={80}
+            color="gray"
           />
           <h2 className="mt-4 text-lg font-semibold flex gap-1">
             <span>{profile.firstName}</span>
@@ -93,33 +102,43 @@ function Sidebar() {
         </div>
 
         <nav className="flex flex-col   gap-8">
-          <Link
+          <NavLink
             to={'auftrage'}
             onClick={() => setOpen(false)}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-lg ${
+                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+              }`
+            }
           >
             <FaBox />
             Meine Aufträge
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to={'personliche-info'}
             onClick={() => setOpen(false)}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200"
-            title=" Persönliche Info"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-lg ${
+                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+              }`
+            }
           >
             <FaUser />
             Persönliche Info
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to={'uber-app'}
             onClick={() => setOpen(false)}
-            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-200"
-            title="  Über App"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-lg ${
+                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+              }`
+            }
           >
             <FaInfoCircle />
             Über App
-          </Link>
+          </NavLink>
 
           <CustomAlertDialog
             title="Ausloggen bestätigen"

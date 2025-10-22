@@ -34,6 +34,10 @@ function App() {
             element: <Driver />,
             children: [
               {
+                index: true,
+                element: <LoadListe />,
+              },
+              {
                 path: 'auftrage',
                 element: <LoadListe />,
               },
@@ -63,6 +67,11 @@ function App() {
             element: <Disponent />,
             children: [
               {
+                index: true,
+                element: <CreateOrder />,
+              },
+              {
+                index: true,
                 path: 'auftrag-erstellen',
                 element: <CreateOrder />,
               },
