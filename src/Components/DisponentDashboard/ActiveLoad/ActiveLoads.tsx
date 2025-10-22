@@ -13,6 +13,7 @@ import {
   AccordionTrigger,
 } from '../../ui/accordion';
 import { Tables } from '../../../types/database.types';
+import CustomAlertDialog from '../../ui/Dialog';
 
 type Load = Tables<'loads'> & { driver: Tables<'profiles'> | null };
 
@@ -27,14 +28,11 @@ function ActiveLoads() {
         .from('loads')
         .select('*, driver:profiles!loads_driver_id_fkey( *)')
         .eq('done', false);
-      console.log(data);
 
       if (error) {
-        console.log(error);
-        toast.error('Etwas ist schief gelaufen');
+        toast.error('Etwas ist schief gelaufen!');
       } else if (data) {
         setLoads(data);
-        console.log(data);
       }
 
       setLoading(false);
@@ -52,7 +50,7 @@ function ActiveLoads() {
     if (error) {
       toast.error('Fehler beim Aktualisieren');
     } else {
-      toast.success('Ladung wurde Erledigkt');
+      toast.success('Ladung wurde abgeschlossen');
       setLoads((load) => load.filter((load) => load.id !== id));
     }
   }
@@ -66,6 +64,7 @@ function ActiveLoads() {
         />
       </div>
     );
+
   return (
     <div className="flex flex-col gap-5 md:pt-15 w-full h-full">
       {loads.length === 0 ? (
@@ -209,12 +208,12 @@ function ActiveLoads() {
             </Accordion>
 
             <div>
-              <Button
-                onClick={() => finishLoads(index.id)}
-                className="cursor-pointer"
-              >
-                Auftrag Abschließen
-              </Button>
+              <CustomAlertDialog
+                title="Ladung bestätigen"
+                description="Möchtest du diese Ladung wirklich abschließen? Dieser Vorgang kann nicht rückgängig gemacht werden."
+                buttonName="Abschließen"
+                onConfirm={() => finishLoads(index.id)}
+              />
             </div>
           </Card>
         ))
@@ -222,4 +221,5 @@ function ActiveLoads() {
     </div>
   );
 }
+
 export default ActiveLoads;

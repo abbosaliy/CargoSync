@@ -28,7 +28,6 @@ function CompletedLoads() {
         toast.error('Etwas ist schief gelaufen');
       } else {
         setLoads(data);
-        console.log(data);
       }
 
       setLoading(false);
@@ -124,53 +123,64 @@ function CompletedLoads() {
                 <AccordionContent className="flex flex-wrap gap-5">
                   <p className="flex gap-2 ">
                     <span className="text-black/50">Beladen:</span>
-                    {new Date(index?.loaded_at ?? '').toLocaleString('de-De', {
-                      timeZone: 'Europe/Berlin',
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    {index.loaded_at
+                      ? new Date(index?.loaded_at ?? '').toLocaleString(
+                          'de-De',
+                          {
+                            timeZone: 'Europe/Berlin',
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          }
+                        )
+                      : 'Die Zeit des Fahrers ist nicht gesetzt!'}
                   </p>
                   <p className="flex gap-2">
                     <span className="text-black/50"> Unterwegs:</span>
-                    {new Date(index?.onroad_at ?? '').toLocaleString('de-De', {
-                      timeZone: 'Europe/Berlin',
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    {index.onroad_at
+                      ? new Date(index?.onroad_at ?? '').toLocaleString(
+                          'de-De',
+                          {
+                            timeZone: 'Europe/Berlin',
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          }
+                        )
+                      : 'Die Zeit des Fahrers ist nicht gesetzt!'}
                   </p>
                   <p className="flex gap-2">
                     <span className="text-black/50"> Entladen:</span>
-                    {new Date(index?.unloaded_at ?? '').toLocaleString(
-                      'de-De',
-                      {
-                        timeZone: 'Europe/Berlin',
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      }
-                    )}
+                    {index.unloaded_at
+                      ? new Date(index?.unloaded_at ?? '').toLocaleString(
+                          'de-De',
+                          {
+                            timeZone: 'Europe/Berlin',
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          }
+                        )
+                      : 'Die Zeit des Fahrers ist nicht gesetzt!'}
                   </p>
                   <p className="flex gap-2">
                     <span className="text-black/50"> Zugestellt:</span>
-                    {new Date(index?.delivered_at ?? '').toLocaleString(
-                      'de-De',
-                      {
-                        timeZone: 'Europe/Berlin',
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      }
-                    )}
+                    {index.delivered_at
+                      ? new Date(index.delivered_at).toLocaleString('de-De', {
+                          timeZone: 'Europe/Berlin',
+                          year: 'numeric',
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })
+                      : 'Die Zeit des Fahrers ist nicht gesetzt!'}
                   </p>
                 </AccordionContent>
               </AccordionItem>

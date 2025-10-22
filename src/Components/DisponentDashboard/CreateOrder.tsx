@@ -40,11 +40,11 @@ function CreateOrder() {
     } = await supabase.auth.getUser();
 
     if (userError || !user) {
-      toast.error('Fehler beim Laden des Benutzers');
+      toast.error('Etwas ist schief gelaufen!');
       return;
     }
 
-    const { data, error } = await supabase.from('loads').insert([
+    const { error } = await supabase.from('loads').insert([
       {
         company_name: value.company_name,
         sender_address: value.sender_address,
@@ -61,7 +61,7 @@ function CreateOrder() {
 
     if (error) {
       console.log(error);
-      toast.error('Fehler ');
+      toast.error('Etwas ist schief gelaufen!');
     } else {
       toast.success('Die Ladung wurde erfolgreich erstellt');
       setValue({
@@ -76,7 +76,6 @@ function CreateOrder() {
         driver_id: '',
       });
     }
-    console.log(data, error);
   }
 
   return (

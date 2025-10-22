@@ -42,7 +42,7 @@ function SidebarDiponenten() {
         .single();
 
       if (error) {
-        console.log(error);
+        toast.error('Etwas ist schief gelaufen!');
       } else {
         setProfile(data);
       }
@@ -54,8 +54,7 @@ function SidebarDiponenten() {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      console.log(error);
-      toast.error('Fehler beim Ausloggen');
+      toast.error('Abmeldung fehlgeschlagen');
       return;
     }
     navigate('/');

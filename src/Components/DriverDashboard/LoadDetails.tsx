@@ -46,10 +46,8 @@ function LoadDetails() {
         .single();
 
       if (error) {
-        console.log(error);
-        toast.error('Etwas ist schief gelaufen');
+        toast.error('Etwas ist schief gelaufen!');
       } else {
-        console.log(data);
         setLoads(data);
       }
     }
@@ -68,13 +66,12 @@ function LoadDetails() {
       .eq('id', loads.id);
 
     if (error) {
-      console.log(error);
       toast.error('Fehler beim Aktualisieren');
       return;
     }
 
     setLoads({ ...loads, [field]: localTime });
-    toast.success('Status aktualisiert!');
+    toast.success('Status wurde aktualisiert!');
 
     if (field === 'delivered_at') {
       setLoads(null);
@@ -172,7 +169,7 @@ function LoadDetails() {
               )
             }
             onConfirm={() => statusUpdate('delivered_at')}
-          ></CustomAlertDialog>
+          />
         </div>
 
         <Button

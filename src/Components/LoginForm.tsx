@@ -85,7 +85,7 @@ function SingUpUser() {
               <div className="w-full flex flex-col">
                 <p>Password</p>
                 <Input
-                  className="border-1 border-black/20 rounded-md p-2"
+                  className=" border-1 border-black/20 rounded-md p-2"
                   type="password"
                   placeholder=""
                   value={password}

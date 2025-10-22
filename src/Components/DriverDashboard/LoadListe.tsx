@@ -38,10 +38,8 @@ function LoadListe() {
         .is('delivered_at', null);
 
       if (error) {
-        console.log(error);
-        toast.error('Etwas ist schief gelaufen');
+        toast.error('Etwas ist schief gelaufen!');
       } else {
-        console.log(data);
         setLoads(data);
       }
 

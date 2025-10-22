@@ -31,10 +31,8 @@ function ProfileData() {
         .single();
 
       if (error) {
-        console.log(error);
-        toast.error('Etwas ist schif gelaufen');
+        toast.error('Etwas ist schief gelaufen!');
       } else if (data) {
-        console.log(data);
         setProfile({
           id: user.id,
           firstName: data.firstName ?? '',

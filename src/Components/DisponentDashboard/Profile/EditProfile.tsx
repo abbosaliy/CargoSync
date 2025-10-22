@@ -35,11 +35,8 @@ function EditProfile() {
         .single();
 
       if (error) {
-        console.log(error);
-        toast.error('Etwas ist schif gelaufen');
+        toast.error('Etwas ist schief gelaufen!');
       } else if (data) {
-        console.log(data);
-
         setProfile({
           id: user.id,
           firstName: data.firstName ?? '',
@@ -62,7 +59,7 @@ function EditProfile() {
       !profile?.phoneNumber ||
       !profile?.role
     ) {
-      toast.error('Bitte alle Pflichtfeldern ausfüllen !');
+      toast.error('Bitte alle Pflichtfelder ausfüllen!');
       return;
     }
 
@@ -72,7 +69,6 @@ function EditProfile() {
       .eq('id', profile.id);
 
     if (error) {
-      console.log(error);
       toast.error('Etwas ist schief gelaufen !');
     } else {
       toast.success('Daten wurden erfolgreich gändert');

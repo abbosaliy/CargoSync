@@ -36,11 +36,9 @@ function EditLoads() {
         .single();
 
       if (error) {
-        console.log(error);
         toast.error('Etwas ist schief gelaufen');
       } else {
         setValue(data);
-        console.log(data);
       }
     }
 
@@ -58,7 +56,7 @@ function EditLoads() {
       !value?.cargo_type ||
       !value?.description
     ) {
-      toast.error('Bitte alle Pflichtfeldern ausfüllen !');
+      toast.error('Bitte alle Pflichtfelder ausfüllen!');
       return;
     }
 
@@ -68,7 +66,7 @@ function EditLoads() {
       .eq('id', value.id);
 
     if (error) {
-      toast.error('Etwas ist schief gelaufen !');
+      toast.error('Etwas ist schief gelaufen!');
     } else {
       toast.success('Daten wurde erfolgreich gändert');
       navigate(-1);

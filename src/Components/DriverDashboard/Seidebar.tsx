@@ -47,8 +47,7 @@ function Sidebar() {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      console.log(error);
-      toast.error('Fehler beim Ausloggen');
+      toast.error('Abmeldung fehlgeschlagen');
       return;
     }
 
@@ -65,7 +64,6 @@ function Sidebar() {
       >
         <FaBars size={24} />
       </Button>
-
       <aside
         className={`w-64 lg:w-75 h-full p-4  bg-white border-r border-black/20 justify-between  flex flex-col duration-300 ${
           open ? 'setOpen-x-0' : '-translate-x-full '
@@ -100,7 +98,6 @@ function Sidebar() {
           </h2>
           <p className="text-gray-500 text-sm capitalize">{profile.role}</p>
         </div>
-
         <nav className="flex flex-col   gap-8">
           <NavLink
             to={'auftrage'}
@@ -114,7 +111,6 @@ function Sidebar() {
             <FaBox />
             Meine Aufträge
           </NavLink>
-
           <NavLink
             to={'personliche-info'}
             onClick={() => setOpen(false)}
@@ -139,7 +135,6 @@ function Sidebar() {
             <FaInfoCircle />
             Über App
           </NavLink>
-
           <CustomAlertDialog
             title="Ausloggen bestätigen"
             description="Willst du wirklich raus gehen?"
