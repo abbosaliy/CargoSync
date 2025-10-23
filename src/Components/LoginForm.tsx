@@ -59,7 +59,7 @@ function SingUpUser() {
     <div className="h-screen flex flex-col items-center justify-center">
       <div className=" absolute top-8 left-8 flex items-center gap-2">
         <img
-          src="/Logistik-App/images/logo.png"
+          src="/images/logo.png"
           alt="CargoSync Logo"
           className="w-10 h-10"
         />
