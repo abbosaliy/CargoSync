@@ -115,7 +115,7 @@ function App() {
       },
     ],
     {
-      basename: '/Logistik-App',
+      basename: '/',
     }
   );
   return (

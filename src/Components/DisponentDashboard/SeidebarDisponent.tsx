@@ -77,7 +77,7 @@ function SidebarDiponenten() {
       >
         <div className=" absolute left-2 flex justify-center items-center">
           <img
-            src="/Logistik-App/images/logo.png"
+            src="/images/logo.png"
             alt="CargoSync Logo"
             className="w-10 h-10"
           />
