@@ -108,7 +108,7 @@ function RegisterForm() {
               <Input
                 className="border-1 border-black/20 rounded-md p-2  focus:border-blue-500 focus:outline-none"
                 type="email"
-                placeholder="max@mustermann.com"
+                placeholder="Email adresse"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -118,7 +118,7 @@ function RegisterForm() {
               <Input
                 className="border-1 border-black/20 rounded-md p-2 focus:border-blue-500 focus:outline-none"
                 type="password"
-                placeholder=""
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

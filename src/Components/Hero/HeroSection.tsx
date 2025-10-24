@@ -5,19 +5,19 @@ import SingUpUser from '../LoginForm';
 function HeroSection() {
   const [open, setOpen] = useState(false);
   return (
-    <div className=" h-full flex flex-col  bg-gray-50   p-15 gap-10">
-      <div className="flex items-center  ">
+    <div className=" h-full flex flex-col  bg-gray-50 p-5  md:p-15 gap-10">
+      <div className=" flex items-center gap-5 ">
         <img
           src="/images/logo.png"
           alt="CargoSymc log"
-          className="w-20 h-20"
+          className="w-20 h-20 object-contain"
         />
         <span className="text-3xl font-semibold text-gray-800">CargoSync</span>
       </div>
       <div className="w-full flex flex-col md:flex-row  justify-between  ">
         {!open ? (
           <>
-            <div className=" max-w-xl  md:text-left mb-12 md:mb-0 ">
+            <div className=" max-w-xl  md:text-left mb-5 md:mb-0 ">
               <h1 className="text-2xl md:text-5xl font-bold mb-4 text-gray-900 ">
                 CargoSync — Die moderne Lösung für Logistikmanagement
               </h1>
