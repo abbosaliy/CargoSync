@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import Driver from './Components/DriverDashboard/Driver';
 import Disponent from './Components/DisponentDashboard/Disponent';
-import SingUpUser from './Components/LoginForm';
 import CreateOrder from './Components/DisponentDashboard/CreateOrder';
 import ProfileData from './Components/DisponentDashboard/Profile/ProfilesData';
 import UberApp from './Components/UberApp/UberApp';
@@ -17,6 +16,7 @@ import LoadDetails from './Components/DriverDashboard/LoadDetails';
 import EditLoads from './Components/DisponentDashboard/ActiveLoad/EditActiveLoads';
 
 import Rooute from './Components/routes/Root';
+import HeroSection from './Components/Hero/HeroSection';
 
 function App() {
   const router = createBrowserRouter(
@@ -27,7 +27,7 @@ function App() {
         children: [
           {
             index: true,
-            element: <SingUpUser></SingUpUser>,
+            element: <HeroSection />,
           },
           {
             path: 'fahrer-dashboard',

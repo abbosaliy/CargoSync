@@ -71,7 +71,7 @@ function RegisterForm() {
   }
 
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center">
       {!open ? (
         <div className="h-auto w-[350px] p-5 gap-15 border-1 border-black/10 rounded-md border-solid flex flex-col items-center shadow-md ">
           <h2 className="text-xl ">Registrieren</h2>

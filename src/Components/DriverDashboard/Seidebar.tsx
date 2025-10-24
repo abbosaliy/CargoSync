@@ -73,9 +73,9 @@ function Sidebar() {
           <img
             src="/images/logo.png"
             alt="CargoSync Logo"
-            className="w-10 h-10"
+            className="w-12 h-12"
           />
-          <h1 className="text-xl font-bold text-[#0C88FF] tracking-wide">
+          <h1 className="text-2xl font-bold text-gray-800 tracking-wide">
             CargoSync
           </h1>
         </div>
