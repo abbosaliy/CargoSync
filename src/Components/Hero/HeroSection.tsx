@@ -5,7 +5,7 @@ import SingUpUser from '../LoginForm';
 function HeroSection() {
   const [open, setOpen] = useState(false);
   return (
-    <div className=" h-full flex flex-col  bg-gray-50 p-5  md:p-15 gap-10">
+    <div className=" h-screen flex flex-col  bg-gray-50 p-5  md:p-15 ">
       <div className=" flex items-center gap-5 ">
         <img
           src="/images/logo.png"
@@ -14,7 +14,7 @@ function HeroSection() {
         />
         <span className="text-3xl font-semibold text-gray-800">CargoSync</span>
       </div>
-      <div className="w-full flex flex-col md:flex-row  justify-between  ">
+      <div className="w-full flex flex-col md:flex-row md:py-0 justify-between  ">
         {!open ? (
           <>
             <div className=" max-w-xl  md:text-left mb-5 md:mb-0 ">

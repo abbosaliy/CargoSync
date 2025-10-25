@@ -65,7 +65,7 @@ function Sidebar() {
         <FaBars size={24} />
       </Button>
       <aside
-        className={`w-64 lg:w-75 h-full p-4  bg-white border-r border-black/20 justify-between  flex flex-col duration-300 ${
+        className={`w-64 lg:w-75 h-full p-4 border-r border-black/20 justify-between  flex flex-col duration-300 ${
           open ? 'setOpen-x-0' : '-translate-x-full '
         } fixed top-0 left-0 md:static md:translate-x-0 `}
       >
