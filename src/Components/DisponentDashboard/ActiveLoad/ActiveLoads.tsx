@@ -209,6 +209,7 @@ function ActiveLoads() {
 
             <div>
               <CustomAlertDialog
+                className="cursor-pointer"
                 title="Ladung bestätigen"
                 description="Möchtest du diese Ladung wirklich abschließen? Dieser Vorgang kann nicht rückgängig gemacht werden."
                 buttonName="Abschließen"

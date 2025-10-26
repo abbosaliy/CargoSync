@@ -58,7 +58,7 @@ function ProfileData() {
 
   return (
     <div className="md:pt-15 flex flex-col gap-10 md:w-[50%]">
-      <div className="flex gap-10 flex-wrap justify-between items-center">
+      <div className="flex gap-10 justify-between items-center">
         <h1 className="text-xl mb-4">Persönlichen Daten</h1>
         <Link
           to={'bearbeiten'}

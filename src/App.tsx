@@ -122,7 +122,7 @@ function App() {
     <>
       <RouterProvider router={router} />
       <Toaster
-        position="bottom-center"
+        position="bottom-right"
         richColors
       />
     </>

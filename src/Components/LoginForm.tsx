@@ -64,7 +64,6 @@ function SingUpUser() {
             <div className="flex flex-col w-full">
               <p>Email</p>
               <Input
-                className="border-1 border-black/20 rounded-md p-2"
                 type="email"
                 placeholder="Email adresse"
                 value={email}
@@ -74,7 +73,6 @@ function SingUpUser() {
             <div className="w-full flex flex-col">
               <p>Password</p>
               <Input
-                className=" border-1 border-black/20 rounded-md p-2"
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -83,7 +81,12 @@ function SingUpUser() {
             </div>
 
             <div className="flex flex-col items-center gap-2.5">
-              <Button onClick={LoginUser}>Anmelden</Button>
+              <Button
+                onClick={LoginUser}
+                className="cursor-pointer"
+              >
+                Anmelden
+              </Button>
               <p className="text-sm text-gray-600 flex flex-col items-center">
                 Noch kein Konto?
                 <span

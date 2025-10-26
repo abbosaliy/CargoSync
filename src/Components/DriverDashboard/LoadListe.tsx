@@ -87,7 +87,7 @@ function LoadListe() {
               </p>
             </div>
             <Button
-              className="md:w-sm"
+              className="md:w-sm cursor-pointer"
               onClick={() => navigate(`/fahrer-dashboard/auftrage/${load.id}`)}
             >
               Auftrag Starten

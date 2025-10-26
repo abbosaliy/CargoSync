@@ -73,50 +73,45 @@ function RegisterForm() {
   return (
     <div className="flex items-center justify-center">
       {!open ? (
-        <div className="h-auto w-[350px] p-5 gap-15 border-1 border-black/10 rounded-md border-solid flex flex-col items-center shadow-md ">
+        <div className="h-auto w-[350px] p-5 gap-15 border border-black/10 rounded-md border-solid flex flex-col items-center shadow-md ">
           <h2 className="text-xl ">Registrieren</h2>
-          <div className="w-[100%] flex flex-col gap-5">
-            <div className="flex flex-col w-[100%]">
+          <div className="w-full flex flex-col gap-5">
+            <div className="flex flex-col">
               <p>Vorname</p>
               <Input
-                className="border-1 border-black/20 rounded-md p-2  focus:border-blue-500 focus:outline-none"
                 type="text"
                 placeholder=""
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
-            <div className="flex flex-col w-[100%]">
+            <div className="flex flex-col">
               <p>Nachname</p>
               <Input
-                className="border-1 border-black/20 rounded-md p-2  focus:border-blue-500 focus:outline-none"
                 type="text"
                 placeholder=""
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
-            <div className="flex flex-col w-[100%]">
+            <div className="flex flex-col">
               <p>Dienst Nummer</p>
               <Input
-                className="border-1 border-black/20 rounded-md p-2  focus:border-blue-500 focus:outline-none"
                 type="text"
                 placeholder=""
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
-            <div className="flex flex-col w-[100%]">
+            <div className="flex flex-col">
               <p>Email</p>
               <Input
-                className="border-1 border-black/20 rounded-md p-2  focus:border-blue-500 focus:outline-none"
                 type="email"
                 placeholder="Email adresse"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="w-[100%] flex flex-col">
+            <div className=" flex flex-col">
               <p>Password</p>
               <Input
-                className="border-1 border-black/20 rounded-md p-2 focus:border-blue-500 focus:outline-none"
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -124,7 +119,7 @@ function RegisterForm() {
               />
             </div>
             <select
-              className="border-1 border-black/20 rounded-md p-2  focus:border-blue-500 focus:outline-none"
+              className="border border-black/10 rounded-md p-2  focus:outline-none cursor-pointer"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
@@ -133,7 +128,12 @@ function RegisterForm() {
               <option value={'fahrer'}> Fahrer/in</option>
             </select>
             <div className="flex flex-col items-center gap-2.5">
-              <Button onClick={RegisterForm}> Registrieren</Button>
+              <Button
+                onClick={RegisterForm}
+                className="cursor-pointer"
+              >
+                Registrieren
+              </Button>
               <p className="flex flex-col  items-center text-sm text-gray-600">
                 Hast du schon ein Konto?
                 <span

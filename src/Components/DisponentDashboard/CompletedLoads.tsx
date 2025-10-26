@@ -119,7 +119,9 @@ function CompletedLoads() {
               className="w-[80%]"
             >
               <AccordionItem value="item-1">
-                <AccordionTrigger>Status Ansehen</AccordionTrigger>
+                <AccordionTrigger className=" cursor-pointer">
+                  Status Ansehen
+                </AccordionTrigger>
                 <AccordionContent className="flex flex-wrap gap-5">
                   <p className="flex gap-2 ">
                     <span className="text-black/50">Beladen:</span>

@@ -25,7 +25,12 @@ function HeroSection() {
                 Behalten Sie Ihre Lieferungen im Blick, verwalten Sie Fahrer
                 effizient und optimieren Sie Ihre Aufträge – alles an einem Ort.
               </p>
-              <Button onClick={() => setOpen(true)}>Jetz Starten</Button>
+              <Button
+                onClick={() => setOpen(true)}
+                className="cursor-pointer"
+              >
+                Jetzt Starten
+              </Button>
             </div>
             <div className=" w-full  md:w-1/2 flex justify-center ">
               <img

@@ -134,6 +134,7 @@ function LoadDetails() {
         <div className="flex flex-col md:flex-row flex-wrap gap-5  ">
           <Button
             variant="default"
+            className="cursor-pointer"
             onClick={() => statusUpdate('loaded_at')}
           >
             Beladen
@@ -143,6 +144,7 @@ function LoadDetails() {
           </Button>
           <Button
             variant="default"
+            className="cursor-pointer"
             onClick={() => statusUpdate('onroad_at')}
           >
             Unterwegs
@@ -152,6 +154,7 @@ function LoadDetails() {
           </Button>
           <Button
             variant="default"
+            className="cursor-pointer"
             onClick={() => statusUpdate('unloaded_at')}
           >
             Entladen
@@ -160,6 +163,7 @@ function LoadDetails() {
             )}
           </Button>
           <CustomAlertDialog
+            className="cursor-pointer"
             title="Zustellung bestätigen"
             description="Möchtest du wirklich bestätigen, dass die Ladung erfolgreich zugestellt wurde? Diese Aktion kann nicht rückgängig gemacht werden."
             buttonName="Zugestellt"
@@ -174,7 +178,7 @@ function LoadDetails() {
 
         <Button
           variant="default"
-          className="md:w-sm"
+          className="md:w-sm cursor-pointer"
           onClick={() => navigate(-1)}
         >
           <IoMdArrowRoundBack />

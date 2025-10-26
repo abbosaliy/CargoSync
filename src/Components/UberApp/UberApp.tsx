@@ -15,7 +15,9 @@ function UberApp() {
         defaultValue="item-1"
       >
         <AccordionItem value="item-1">
-          <AccordionTrigger className="text-xl">Über uns</AccordionTrigger>
+          <AccordionTrigger className="text-xl cursor-pointer">
+            Über uns
+          </AccordionTrigger>
           <AccordionContent className="flex  flex-col gap-4 text-balance">
             <p className="text-base">
               Das ist eine digitale Logistikplattform, die Fahrer und
@@ -33,7 +35,9 @@ function UberApp() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger className="text-xl">Impressum</AccordionTrigger>
+          <AccordionTrigger className="text-xl cursor-pointer">
+            Impressum
+          </AccordionTrigger>
           <AccordionContent className="flex flex-col gap-1">
             <p className="text-base flex gap-2">
               Name:<span className="text-black/70"> Abbosbek Anvarjonov</span>
@@ -60,7 +64,9 @@ function UberApp() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger className="text-xl">Datenschütz</AccordionTrigger>
+          <AccordionTrigger className="text-xl cursor-pointer">
+            Datenschütz
+          </AccordionTrigger>
           <AccordionContent>
             <p className="text-base">
               Der Schutz Ihrer persönlichen Daten ist mir wichtig. Diese Website
@@ -73,7 +79,9 @@ function UberApp() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-4">
-          <AccordionTrigger className="text-xl">Kontakt</AccordionTrigger>
+          <AccordionTrigger className="text-xl cursor-pointer">
+            Kontakt
+          </AccordionTrigger>
           <AccordionContent>
             <p className="text-base flex gap-2">
               E-mail:

@@ -52,7 +52,10 @@ function CustomAlertDialog({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => setOpen(false)}>
+          <AlertDialogCancel
+            onClick={() => setOpen(false)}
+            className="cursor-pointer"
+          >
             Nein
           </AlertDialogCancel>
           <AlertDialogAction
@@ -60,6 +63,7 @@ function CustomAlertDialog({
               onConfirm();
               setOpen(false);
             }}
+            className="cursor-pointer"
           >
             Ja
           </AlertDialogAction>

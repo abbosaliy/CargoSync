@@ -93,7 +93,6 @@ function EditProfile() {
         <p>Vorname</p>
         <Input
           type="text"
-          className="border border-black/20 rounded-md p-2 w-full"
           value={profile.lastName}
           onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
         />
@@ -102,7 +101,6 @@ function EditProfile() {
         <p>Nachname</p>
         <Input
           type="text"
-          className="border border-black/20 rounded-md p-2 w-full"
           value={profile.firstName}
           onChange={(e) =>
             setProfile({ ...profile, firstName: e.target.value })
@@ -113,7 +111,6 @@ function EditProfile() {
         <p>Position</p>
         <Input
           type="text"
-          className="border border-black/20 rounded-md p-2 w-full capitalize"
           value={profile.role}
           onChange={(e) => setProfile({ ...profile, role: e.target.value })}
         />
@@ -122,7 +119,6 @@ function EditProfile() {
         <p>Telefon nummer</p>
         <Input
           type="text"
-          className="border border-black/20 rounded-md p-2 w-full"
           value={profile.phoneNumber}
           onChange={(e) =>
             setProfile({ ...profile, phoneNumber: e.target.value })
@@ -133,14 +129,13 @@ function EditProfile() {
         <p>Email - Adresse</p>
         <Input
           type="text"
-          className="border border-black/20 rounded-md p-2 w-full"
           value={profile.email}
           onChange={(e) => setProfile({ ...profile, email: e.target.value })}
         />
       </div>
       <Button
         onClick={hanleUpdate}
-        className="w-full md:w-40 px-6 py-2 rounded-md"
+        className="w-full md:w-40  cursor-pointer"
       >
         Speichern
       </Button>

@@ -85,7 +85,6 @@ function CreateOrder() {
           <p>Firmenname</p>
           <Input
             type="text"
-            className="border border-black/20 rounded-md p-2 w-full"
             value={value.company_name}
             onChange={(e) =>
               setValue({ ...value, company_name: e.target.value })
@@ -96,7 +95,6 @@ function CreateOrder() {
           <p>Abhol Adresse</p>
           <Input
             type="text"
-            className="border border-black/20 rounded-md p-2 w-full"
             value={value.sender_address}
             onChange={(e) =>
               setValue({ ...value, sender_address: e.target.value })
@@ -109,7 +107,6 @@ function CreateOrder() {
           <p>Abholdatum</p>
           <Input
             type="date"
-            className="border border-black/20 rounded-md p-2 w-full"
             value={value.pickup_date}
             onChange={(e) =>
               setValue({ ...value, pickup_date: e.target.value })
@@ -120,7 +117,6 @@ function CreateOrder() {
           <p>Lieferung Adresse</p>
           <Input
             type="text"
-            className="border border-black/20 rounded-md p-2 w-full"
             value={value.delivery_address}
             onChange={(e) =>
               setValue({ ...value, delivery_address: e.target.value })
@@ -133,7 +129,6 @@ function CreateOrder() {
           <p>Lieferdatum</p>
           <Input
             type="date"
-            className="border border-black/20 rounded-md p-2 w-full"
             value={value.delivery_date}
             onChange={(e) =>
               setValue({ ...value, delivery_date: e.target.value })
@@ -144,7 +139,6 @@ function CreateOrder() {
           <p>Ladung Gewicht (kg)</p>
           <Input
             type="text"
-            className="border border-black/20 rounded-md p-2 w-full"
             value={value.cargo_weight}
             onChange={(e) =>
               setValue({ ...value, cargo_weight: e.target.value })
@@ -157,7 +151,6 @@ function CreateOrder() {
           <p>Ladungsart</p>
           <Input
             type="text"
-            className="border border-black/20 rounded-md p-2 w-full"
             value={value.cargo_type}
             onChange={(e) => setValue({ ...value, cargo_type: e.target.value })}
           />
@@ -166,7 +159,6 @@ function CreateOrder() {
           <p>Besondere Hinweise</p>
           <Input
             type="text"
-            className="border border-black/20 rounded-md p-2 w-full"
             value={value.description}
             onChange={(e) =>
               setValue({ ...value, description: e.target.value })
@@ -187,7 +179,7 @@ function CreateOrder() {
       </div>
       <Button
         onClick={handleSend}
-        className="w-full md:w-50 "
+        className="w-full md:w-50  cursor-pointer"
       >
         Senden
       </Button>
