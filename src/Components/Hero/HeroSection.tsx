@@ -14,7 +14,7 @@ function HeroSection() {
         />
         <span className="text-3xl font-semibold text-gray-800">CargoSync</span>
       </div>
-      <div className="w-full flex flex-col md:flex-row md:py-0 justify-between  ">
+      <div className="w-full flex flex-col md:flex-row py-10 md:py-20 justify-between  ">
         {!open ? (
           <>
             <div className=" max-w-xl  md:text-left mb-5 md:mb-0 ">
