@@ -98,7 +98,7 @@ function ActiveLoads() {
                     <span className="text-black/50 text-sm">
                       Zusatzinformationen
                     </span>
-                    <p>{index.delivery_date}</p>
+                    <p>{index.description}</p>
                   </div>
                 </div>
                 <div className="flex  flex-col gap-2">
