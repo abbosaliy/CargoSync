@@ -6,7 +6,7 @@ import ThemaToggle from '../ThemaToggle';
 function HeroSection() {
   const [open, setOpen] = useState(false);
   return (
-    <div className=" dark:bg-slate-900  min-h-screen flex flex-col  bg-gray-50   md:p-15 ">
+    <div className=" dark:bg-slate-900  min-h-screen p-5 flex flex-col  bg-gray-50   md:p-15 ">
       <div className=" flex items-center justify-between ">
         <div className="flex items-center">
           <img
