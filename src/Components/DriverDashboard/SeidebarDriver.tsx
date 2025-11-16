@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import CustomAlertDialog from '../ui/Dialog';
 import { VscAccount } from 'react-icons/vsc';
+import ThemaToggle from '../ThemaToggle';
 
 type Profile = {
   firstName: string | null;
@@ -65,19 +66,22 @@ function Sidebar() {
         <FaBars size={24} />
       </Button>
       <aside
-        className={`w-64 lg:w-75 h-full p-4 border-r bg-white border-black/20 justify-between  flex flex-col duration-300 ${
+        className={`dark:bg-slate-900 w-64 lg:w-75 h-full p-4 border-r bg-white border-black/20  dark:border-white/30 justify-between  flex flex-col  duration-300 ${
           open ? 'setOpen-x-0' : '-translate-x-full '
         } fixed top-0 left-0 md:static md:translate-x-0 `}
       >
-        <div className=" absolute left-2 flex justify-center items-center">
-          <img
-            src="/images/logo.png"
-            alt="CargoSync Logo"
-            className="w-12 h-12"
-          />
-          <h1 className="text-2xl font-bold text-gray-800 tracking-wide">
-            CargoSync
-          </h1>
+        <div className=" absolute left-2 flex  items-center gap-5">
+          <div className="flex items-center">
+            <img
+              src="/images/logo.png"
+              alt="CargoSync Logo"
+              className="w-12 h-12"
+            />
+            <h1 className="text-2xl font-bold text-gray-800 tracking-wide dark:text-slate-100">
+              CargoSync
+            </h1>
+          </div>
+          <ThemaToggle></ThemaToggle>
         </div>
         <div className="self-end pt-20">
           <Button
@@ -104,7 +108,9 @@ function Sidebar() {
             onClick={() => setOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg ${
-                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+                isActive
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200  dark:hover:bg-gray-700'
               }`
             }
           >
@@ -116,7 +122,9 @@ function Sidebar() {
             onClick={() => setOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg ${
-                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+                isActive
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200  dark:hover:bg-gray-700'
               }`
             }
           >
@@ -128,7 +136,9 @@ function Sidebar() {
             onClick={() => setOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg ${
-                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+                isActive
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200  dark:hover:bg-gray-700'
               }`
             }
           >

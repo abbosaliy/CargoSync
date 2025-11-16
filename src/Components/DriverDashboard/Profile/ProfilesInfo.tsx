@@ -69,23 +69,23 @@ function ProfilesInfo() {
           Bearbeiten
         </Link>
       </div>
-      <div className="flex items-start gap-20 border-b border-black/20 pb-3">
+      <div className="flex items-start gap-20 border-b border-black/20  dark:border-white/50 pb-3">
         <p>Vorname:</p>
         <p>{profile.lastName}</p>
       </div>
-      <div className="flex  items-center gap-20 border-b border-black/20 pb-3">
+      <div className="flex  items-center gap-20 border-b border-black/20  dark:border-white/50 pb-3">
         <p>Nachname:</p>
         <p>{profile.firstName}</p>
       </div>
-      <div className="flex  items-center gap-20 border-b border-black/20 pb-3">
+      <div className="flex  items-center gap-20 border-b border-black/20  dark:border-white/50 pb-3">
         <p>Position:</p>
         <p className="capitalize">{profile.role}</p>
       </div>
-      <div className="flex  items-center gap-20 border-b border-black/20 pb-3">
+      <div className="flex  items-center gap-20 border-b border-black/20  dark:border-white/50 pb-3">
         <p>Tel:</p>
         <p>{profile.phoneNumber}</p>
       </div>
-      <div className="flex  items-center gap-20 border-b border-black/20 pb-3">
+      <div className="flex  items-center gap-20 border-b border-black/20  dark:border-white/50 pb-3">
         <p>Email-Adresse:</p>
         <p>{profile.email}</p>
       </div>

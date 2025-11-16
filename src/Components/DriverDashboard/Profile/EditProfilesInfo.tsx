@@ -93,7 +93,7 @@ function EditProfilesInfo() {
     );
 
   return (
-    <div className="flex flex-col md:pt-15 md:w-2xl gap-5">
+    <div className="flex flex-col md:pt-15 md:w-[50%] gap-5">
       <h1 className="text-xl">Profile daten bearbeiten</h1>
       <div className="flex flex-col gap-4">
         <p>Vorname</p>

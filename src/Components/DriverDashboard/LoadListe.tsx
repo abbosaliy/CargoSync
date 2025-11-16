@@ -62,7 +62,7 @@ function LoadListe() {
     <div className="flex h-full w-full flex-col gap-5">
       {loads.length === 0 ? (
         <div className="flex items-center justify-center h-full w-full">
-          <p className=" text-black/50 text-3xl  text-center">
+          <p className=" text-black/50 text-3xl  text-center dark:text-white/50">
             Aktuell sind keine Aufträge vorhanden.
           </p>
         </div>
@@ -70,20 +70,21 @@ function LoadListe() {
         loads.map((load) => (
           <Card
             key={load.id}
-            className="flex flex-col w-full max-w-5xl shadow-md p-4 pl-10 hover:shadow-lg transition"
+            className="dark:bg-slate-900 flex flex-col w-full max-w-5xl shadow-md p-4 pl-10 hover:shadow-lg transition"
           >
             <div className="flex flex-col gap-4">
-              <h2 className="text-xl text-gray-800 font-semibold">
-                {load.company_name}
-              </h2>
-              <p className="text-md text-gray-600">
-                Abholadresse: {load.sender_address}
+              <h2 className="text-xl font-semibold">{load.company_name}</h2>
+              <p className="text-md ">
+                <span className="dark:text-white/50">Abholadresse: </span>{' '}
+                {load.sender_address}
               </p>
-              <p className="text-md text-gray-600">
-                Lieferadresse: {load.delivery_address}
+              <p className="text-md ">
+                <span className="dark:text-white/50">Lieferadresse: </span>
+                {load.delivery_address}
               </p>
-              <p className="text-md text-gray-600">
-                Lieferdatum: {load.delivery_date}
+              <p className="text-md ">
+                <span className="dark:text-white/50">Lieferdatum: </span>
+                {load.delivery_date}
               </p>
             </div>
             <Button

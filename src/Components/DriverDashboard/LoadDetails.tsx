@@ -91,41 +91,57 @@ function LoadDetails() {
 
   return (
     <div className="flex w-full  max-w-5xl  flex-col  ">
-      <Card className="flex flex-col   shadow-md p-4 pl-10 hover:shadow-lg transition">
+      <Card className="dark:bg-slate-900 flex flex-col   shadow-md p-4 pl-10 hover:shadow-lg transition">
         <div className="flex flex-row gap-15">
           <div className="flex w-[30%] flex-col gap-2">
             <div className="flex flex-col gap-1">
-              <span className="text-black/50 text-sm">Firmen Name</span>
+              <span className="text-black/50 text-sm dark:text-white/50">
+                Firmen Name
+              </span>
               <p>{loads.company_name}</p>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-black/50 text-sm">Abhol Andesse</span>
+              <span className="text-black/50 text-sm  dark:text-white/50">
+                Abhol Andesse
+              </span>
               <p>{loads.sender_address}</p>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-black/50 text-sm">Abholtermin</span>
+              <span className="text-black/50 text-sm  dark:text-white/50">
+                Abholtermin
+              </span>
               <p>{loads.pickup_date}</p>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-black/50 text-sm">Zusatzinformationen</span>
+              <span className="text-black/50 text-sm  dark:text-white/50">
+                Zusatzinformationen
+              </span>
               <p>{loads.description}</p>
             </div>
           </div>
           <div className="flex  flex-col gap-2">
             <div className="flex flex-col gap-1">
-              <span className="text-black/50 text-sm">Lieferadresse</span>
+              <span className="text-black/50 text-sm  dark:text-white/50">
+                Lieferadresse
+              </span>
               <p>{loads.delivery_address}</p>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-black/50 text-sm">Liefertermin</span>
+              <span className="text-black/50 text-sm  dark:text-white/50">
+                Liefertermin
+              </span>
               <p>{loads.delivery_date}</p>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-black/50 text-sm">Frachtart</span>
+              <span className="text-black/50 text-sm  dark:text-white/50">
+                Frachtart
+              </span>
               <p>{loads.cargo_type}</p>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-black/50 text-sm">Gewicht</span>
+              <span className="text-black/50 text-sm  dark:text-white/50">
+                Gewicht
+              </span>
               <p>{loads.cargo_weight}</p>
             </div>
           </div>
@@ -163,7 +179,7 @@ function LoadDetails() {
             )}
           </Button>
           <CustomAlertDialog
-            className="cursor-pointer"
+            className="cursor-pointer "
             title="Zustellung bestätigen"
             description="Möchtest du wirklich bestätigen, dass die Ladung erfolgreich zugestellt wurde? Diese Aktion kann nicht rückgängig gemacht werden."
             buttonName="Zugestellt"

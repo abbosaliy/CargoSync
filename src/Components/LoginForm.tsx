@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import RegisterForm from './RegisterForm';
 import { toast } from 'sonner';
+import { Card } from './ui/card';
 
 function SingUpUser() {
   const [email, setEmail] = useState('');
@@ -58,7 +59,7 @@ function SingUpUser() {
   return (
     <div className="flex flex-col items-center justify-center">
       {!open ? (
-        <div className="h-auto w-[350px] p-5 gap-15 border  border-black/10 rounded-md border-solid flex flex-col items-center shadow-md ">
+        <Card className="dark:bg-slate-900  h-auto w-[350px] p-5 gap-15 flex flex-col items-center shadow-md ">
           <h2>Anmelden</h2>
           <div className="w-full flex flex-col gap-5">
             <div className="flex flex-col w-full">
@@ -87,7 +88,7 @@ function SingUpUser() {
               >
                 Anmelden
               </Button>
-              <p className="text-sm text-gray-600 flex flex-col items-center">
+              <p className="text-sm text-gray-600 flex flex-col items-center dark:text-white/50">
                 Noch kein Konto?
                 <span
                   onClick={() => setOpen(true)}
@@ -98,7 +99,7 @@ function SingUpUser() {
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       ) : (
         <RegisterForm></RegisterForm>
       )}

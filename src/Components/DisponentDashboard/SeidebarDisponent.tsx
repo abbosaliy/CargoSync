@@ -15,6 +15,7 @@ import { FaTruckFast } from 'react-icons/fa6';
 import { VscAccount } from 'react-icons/vsc';
 import { toast } from 'sonner';
 import CustomAlertDialog from '../ui/Dialog';
+import ThemaToggle from '../ThemaToggle';
 
 type Profile = {
   firstName: string | null;
@@ -71,19 +72,22 @@ function SidebarDiponenten() {
         <FaBars size={24} />
       </Button>
       <aside
-        className={`w-64 lg:w-75 h-full p-4 justify-between  border-r bg-white border-black/20 flex flex-col duration-300 ${
+        className={`dark:bg-slate-900  w-64 lg:w-75 h-full p-4 justify-between  bg-white border-r border-black/20 dark:border-white/30 flex flex-col duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } fixed top-0 left-0 md:static md:translate-x-0 `}
       >
-        <div className=" absolute left-2 flex justify-center items-center">
-          <img
-            src="/images/logo.png"
-            alt="CargoSync Logo"
-            className="w-12 h-12"
-          />
-          <h1 className="text-2xl font-bold text-gray-800 tracking-wide">
-            CargoSync
-          </h1>
+        <div className=" absolute left-2 flex justify-center items-center gap-5">
+          <div className="flex items-center">
+            <img
+              src="/images/logo.png"
+              alt="CargoSync Logo"
+              className="w-12 h-12"
+            />
+            <h1 className="text-2xl font-bold text-gray-800 tracking-wide dark:text-gray-100">
+              CargoSync
+            </h1>
+          </div>
+          <ThemaToggle></ThemaToggle>
         </div>
         <div className="self-end pt-20">
           <Button
@@ -112,7 +116,9 @@ function SidebarDiponenten() {
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg ${
-                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+                isActive
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200 dark:hover:bg-gray-700'
               }`
             }
           >
@@ -124,7 +130,9 @@ function SidebarDiponenten() {
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg ${
-                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+                isActive
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200 dark:hover:bg-gray-700 '
               }`
             }
           >
@@ -136,7 +144,9 @@ function SidebarDiponenten() {
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg ${
-                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+                isActive
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200 dark:hover:bg-gray-700 '
               }`
             }
           >
@@ -148,7 +158,9 @@ function SidebarDiponenten() {
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg ${
-                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+                isActive
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200 dark:hover:bg-gray-700'
               }`
             }
           >
@@ -160,7 +172,9 @@ function SidebarDiponenten() {
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg ${
-                isActive ? 'bg-gray-200' : 'hover:bg-gray-200 '
+                isActive
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200 dark:hover:bg-gray-700'
               }`
             }
           >

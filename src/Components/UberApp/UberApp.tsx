@@ -39,27 +39,35 @@ function UberApp() {
             Impressum
           </AccordionTrigger>
           <AccordionContent className="flex flex-col gap-1">
-            <p className="text-base flex gap-2">
-              Name:<span className="text-black/70"> Abbosbek Anvarjonov</span>
+            <p className="text-base flex gap-2 dark:text-white/50">
+              Name:
+              <span className="text-black/70 dark:text-white">
+                Abbosbek Anvarjonov
+              </span>
             </p>
-            <p className="text-base flex gap-2">
+            <p className="text-base flex gap-2 dark:text-white/50">
               Adresse:
-              <span className="text-black/70">
+              <span className="text-black/70 dark:text-white">
                 Ringerweg 4, 06128 Halle, Deutschland
               </span>
             </p>
-            <p className="text-base flex gap-2">
+            <p className="text-base flex gap-2 dark:text-white/50">
               E-mail:
-              <span className="text-black/70">
+              <span className="text-black/70 dark:text-white">
                 abbosbekanvarjonov@gmail.com
               </span>
             </p>
-            <p className="text-base flex gap-2">
-              Telefon: <span className="text-black/70">+49 173 475 91 22</span>
+            <p className="text-base flex gap-2 dark:text-white/50">
+              Telefon:
+              <span className="text-black/70 dark:text-white">
+                +49 173 475 91 22
+              </span>
             </p>
-            <p className="text-base flex gap-2">
+            <p className="text-base flex gap-2 dark:text-white/50">
               Verantwortlich für den Inhalt:
-              <span className="text-black/70">Abbosbek Anvarjonov</span>
+              <span className="text-black/70 dark:text-white">
+                Abbosbek Anvarjonov
+              </span>
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -83,18 +91,23 @@ function UberApp() {
             Kontakt
           </AccordionTrigger>
           <AccordionContent>
-            <p className="text-base flex gap-2">
+            <p className="text-base flex gap-2 dark:text-white/50">
               E-mail:
-              <span className="text-black/70">
+              <span className="text-black/70 dark:text-white">
                 abbosbekanvarjonov@gmail.com
               </span>
             </p>
-            <p className="text-base flex gap-2">
-              Telefon: <span className="text-black/70">+49 173 475 91 22</span>
+            <p className="text-base flex gap-2 dark:text-white/50">
+              Telefon:
+              <span className="text-black/70 dark:text-white">
+                +49 173 475 91 22
+              </span>
             </p>
-            <p className="text-base flex gap-2">
-              Web:{' '}
-              <span className="text-black/70">abbosbek-anvarjonov.com</span>
+            <p className="text-base flex gap-2 dark:text-white/50">
+              Web:
+              <span className="text-black/70 dark:text-white">
+                abbosbek-anvarjonov.com
+              </span>
             </p>
           </AccordionContent>
         </AccordionItem>

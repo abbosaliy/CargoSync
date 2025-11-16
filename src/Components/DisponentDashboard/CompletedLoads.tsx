@@ -49,7 +49,7 @@ function CompletedLoads() {
     <div className="flex flex-col gap-5 md:pt-15 w-full h-full">
       {loads.length === 0 ? (
         <div className="flex items-center justify-center h-full w-full">
-          <p className=" text-black/50 text-3xl  text-center">
+          <p className=" text-black/50 text-3xl  text-center dark:text-white/50">
             Aktuell sind keine erledigkte Aufträge vorhanden.
           </p>
         </div>
@@ -57,24 +57,30 @@ function CompletedLoads() {
         loads.map((index) => (
           <Card
             key={index.id}
-            className=" md:w-[80%] flex flex-col  shadow-md p-4 pl-10 hover:shadow-lg transition"
+            className="dark:bg-slate-900 md:w-[80%] flex flex-col  shadow-md p-4 pl-10 hover:shadow-lg transition"
           >
             <div className="flex gap-15 flex-wrap ">
               <div className="flex lg:w-[35%] flex-col gap-2">
                 <div className="flex flex-col gap-1">
-                  <span className="text-black/50 text-sm">Firmen Name</span>
+                  <span className="text-black/50 text-sm dark:text-white/50">
+                    Firmen Name
+                  </span>
                   <p>{index.company_name}</p>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-black/50 text-sm">Abhol Andesse</span>
+                  <span className="text-black/50 text-sm dark:text-white/50">
+                    Abhol Andesse
+                  </span>
                   <p>{index.sender_address}</p>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-black/50 text-sm">Abholtermin</span>
+                  <span className="text-black/50 text-sm dark:text-white/50">
+                    Abholtermin
+                  </span>
                   <p>{index.pickup_date}</p>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-black/50 text-sm">
+                  <span className="text-black/50 text-sm dark:text-white/50">
                     Zusatzinformationen
                   </span>
                   <p>{index.description}</p>
@@ -82,19 +88,27 @@ function CompletedLoads() {
               </div>
               <div className="flex  flex-col gap-2">
                 <div className="flex flex-col gap-1">
-                  <span className="text-black/50 text-sm">Lieferadresse</span>
+                  <span className="text-black/50 text-sm dark:text-white/50">
+                    Lieferadresse
+                  </span>
                   <p>{index.delivery_address}</p>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-black/50 text-sm">Liefertermin</span>
+                  <span className="text-black/50 text-sm dark:text-white/50">
+                    Liefertermin
+                  </span>
                   <p>{index.delivery_date}</p>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-black/50 text-sm">Frachtart</span>
+                  <span className="text-black/50 text-sm dark:text-white/50">
+                    Frachtart
+                  </span>
                   <p>{index.cargo_type}</p>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-black/50 text-sm">Gewicht</span>
+                  <span className="text-black/50 text-sm dark:text-white/50">
+                    Gewicht
+                  </span>
                   <p>{index.cargo_weight}</p>
                 </div>
               </div>
@@ -102,12 +116,16 @@ function CompletedLoads() {
 
             <div className="flex  flex-wrap gap-5">
               <div className="flex gap-2">
-                <span className="text-black/50 ">Status:</span>
+                <span className="text-black/50 dark:text-white/50 ">
+                  Status:
+                </span>
                 <p className="text-green-500 font-bold ">Zugestellt</p>
               </div>
               <div className="flex gap-2">
                 <p className="flex gap-2">
-                  <span className="text-black/50">Fahrer:</span>
+                  <span className="text-black/50 dark:text-white/50">
+                    Fahrer:
+                  </span>
                   {index.driver!.firstName}
                 </p>
                 <p> {index.driver!.lastName}</p>
@@ -124,7 +142,9 @@ function CompletedLoads() {
                 </AccordionTrigger>
                 <AccordionContent className="flex flex-wrap gap-5">
                   <p className="flex gap-2 ">
-                    <span className="text-black/50">Beladen:</span>
+                    <span className="text-black/50 dark:text-white/50">
+                      Beladen:
+                    </span>
                     {index.loaded_at
                       ? new Date(index?.loaded_at ?? '').toLocaleString(
                           'de-De',
@@ -140,7 +160,9 @@ function CompletedLoads() {
                       : 'Die Zeit des Fahrers ist nicht gesetzt!'}
                   </p>
                   <p className="flex gap-2">
-                    <span className="text-black/50"> Unterwegs:</span>
+                    <span className="text-black/50 dark:text-white/50">
+                      Unterwegs:
+                    </span>
                     {index.onroad_at
                       ? new Date(index?.onroad_at ?? '').toLocaleString(
                           'de-De',
@@ -156,7 +178,9 @@ function CompletedLoads() {
                       : 'Die Zeit des Fahrers ist nicht gesetzt!'}
                   </p>
                   <p className="flex gap-2">
-                    <span className="text-black/50"> Entladen:</span>
+                    <span className="text-black/50 dark:text-white/50">
+                      Entladen:
+                    </span>
                     {index.unloaded_at
                       ? new Date(index?.unloaded_at ?? '').toLocaleString(
                           'de-De',
@@ -172,7 +196,9 @@ function CompletedLoads() {
                       : 'Die Zeit des Fahrers ist nicht gesetzt!'}
                   </p>
                   <p className="flex gap-2">
-                    <span className="text-black/50"> Zugestellt:</span>
+                    <span className="text-black/50 dark:text-white/50">
+                      Zugestellt:
+                    </span>
                     {index.delivered_at
                       ? new Date(index.delivered_at).toLocaleString('de-De', {
                           timeZone: 'Europe/Berlin',
@@ -189,7 +215,7 @@ function CompletedLoads() {
             </Accordion>
             <div className="flex items-center gap-5">
               <p> Auftrag Abgeschlossen</p>
-              <FaRegCheckCircle />
+              <FaRegCheckCircle className="text-green-500" />
             </div>
           </Card>
         ))

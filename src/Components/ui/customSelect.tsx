@@ -46,13 +46,13 @@ function CustomSelct({
       value={value}
       onValueChange={(value) => onSelect(value)}
     >
-      <SelectTrigger className="w-full cursor-pointer">
+      <SelectTrigger className="w-full cursor-pointer dark:bg-slate-900">
         <SelectValue placeholder="Fahrer auswählen"></SelectValue>
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="dark:bg-slate-900">
         {driver.map((index) => (
           <SelectItem
-            className="cursor-pointer"
+            className="cursor-pointer dark:bg-slate-900 dark:hover:bg-slate-500"
             key={index.id}
             value={index.id}
           >

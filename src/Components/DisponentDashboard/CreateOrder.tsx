@@ -79,7 +79,7 @@ function CreateOrder() {
   }
 
   return (
-    <div className="flex flex-col gap-10 md:pt-15 pb-10 xl:w-4xl bg-gray-50 ">
+    <div className="dark:bg-slate-900 flex flex-col gap-10 md:pt-15 pb-10 xl:w-4xl bg-gray-50 ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex flex-col gap-1">
           <p>Firmenname</p>

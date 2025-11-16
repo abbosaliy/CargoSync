@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { toast } from 'sonner';
 import SingUpUser from './LoginForm';
+import { Card } from './ui/card';
 
 function RegisterForm() {
   const [firstName, setFirstName] = useState('');
@@ -71,9 +72,9 @@ function RegisterForm() {
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="dark:bg-slate-900 flex  items-center justify-center">
       {!open ? (
-        <div className="h-auto w-[350px] p-5 gap-15 border border-black/10 rounded-md border-solid flex flex-col items-center shadow-md ">
+        <Card className="dark:bg-slate-900 h-auto w-[350px] p-5 gap-15 border  flex flex-col items-center shadow-md ">
           <h2 className="text-xl ">Registrieren</h2>
           <div className="w-full flex flex-col gap-5">
             <div className="flex flex-col">
@@ -119,7 +120,7 @@ function RegisterForm() {
               />
             </div>
             <select
-              className="border border-black/10 rounded-md p-2  focus:outline-none cursor-pointer"
+              className="border border-black/10 dark:bg-slate-900 dark:border-white/20 rounded-md p-2  focus:outline-none cursor-pointer"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
@@ -134,7 +135,7 @@ function RegisterForm() {
               >
                 Registrieren
               </Button>
-              <p className="flex flex-col  items-center text-sm text-gray-600">
+              <p className="flex flex-col  items-center text-sm text-gray-600 dark:text-white/50">
                 Hast du schon ein Konto?
                 <span
                   onClick={() => setOpen(true)}
@@ -145,7 +146,7 @@ function RegisterForm() {
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       ) : (
         <SingUpUser></SingUpUser>
       )}
