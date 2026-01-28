@@ -5,7 +5,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [tailwindcss(), react()],
-  base: '/',
+  base: '/CargoSync/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

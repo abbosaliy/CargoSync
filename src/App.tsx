@@ -115,8 +115,8 @@ function App() {
       },
     ],
     {
-      basename: '/',
-    }
+      basename: '/CargoSync',
+    },
   );
   return (
     <>
