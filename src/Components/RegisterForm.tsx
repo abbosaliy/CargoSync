@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import supabase from '../lib/supabaseClient';
-import { useNavigate } from 'react-router-dom';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { toast } from 'sonner';
-import SingUpUser from './LoginForm';
-import { Card } from './ui/card';
+import { useState } from "react";
+import supabase from "../lib/supabaseClient";
+import { useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import SingUpUser from "./LoginForm";
+import { Card } from "./ui/card";
+import { toast } from "sonner";
 
 function RegisterForm() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function RegisterForm() {
       !role ||
       !phoneNumber
     ) {
-      toast.error('Bitte alle pflichtfelder Ausfüllen');
+      toast.error("Bitte alle pflichtfelder Ausfüllen");
       return;
     }
     const { data, error } = await supabase.auth.signUp({
@@ -36,7 +36,7 @@ function RegisterForm() {
     });
 
     if (error) {
-      toast.error('Fehler beim Registrieren!');
+      toast.error("Fehler beim Registrieren!");
       console.log(error);
 
       return;
@@ -45,7 +45,7 @@ function RegisterForm() {
     const userId = data.user?.id;
     console.log(userId);
 
-    const { error: profilerror } = await supabase.from('profiles').insert([
+    const { error: profilerror } = await supabase.from("profiles").insert([
       {
         id: userId,
         firstName,
@@ -57,15 +57,15 @@ function RegisterForm() {
     ]);
 
     if (profilerror) {
-      toast.error('Fehler beim Registrieren!'), console.log(profilerror);
+      toast.error("Fehler beim Registrieren!");
 
       return;
     }
 
-    if (role === 'fahrer') {
-      navigate('/fahrer-dashboard');
-    } else if (role === 'disponent') {
-      navigate('/disponent-dashboard');
+    if (role === "fahrer") {
+      navigate("/fahrer-dashboard");
+    } else if (role === "disponent") {
+      navigate("/disponent-dashboard");
     } else {
       return;
     }
@@ -125,14 +125,11 @@ function RegisterForm() {
               onChange={(e) => setRole(e.target.value)}
             >
               <option value="">Position auswählen</option>
-              <option value={'disponent'}>Disponent/in</option>
-              <option value={'fahrer'}> Fahrer/in</option>
+              <option value={"disponent"}>Disponent/in</option>
+              <option value={"fahrer"}> Fahrer/in</option>
             </select>
             <div className="flex flex-col items-center gap-2.5">
-              <Button
-                onClick={RegisterForm}
-                className="cursor-pointer"
-              >
+              <Button onClick={RegisterForm} className="cursor-pointer">
                 Registrieren
               </Button>
               <p className="flex flex-col  items-center text-sm text-gray-600 dark:text-white/50">

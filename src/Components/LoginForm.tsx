@@ -1,22 +1,23 @@
-import { useState } from 'react';
-import supabase from '../lib/supabaseClient';
-import { useNavigate } from 'react-router-dom';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import RegisterForm from './RegisterForm';
-import { toast } from 'sonner';
-import { Card } from './ui/card';
+
+import { useState } from "react";
+import supabase from "../lib/supabaseClient";
+import { useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import RegisterForm from "./RegisterForm";
+import { toast } from "sonner";
+import { Card } from "./ui/card";
 
 function SingUpUser() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
 
   async function LoginUser() {
     if (!email || !password) {
-      toast.error('Bitte email und passwort eingeben!');
+      toast.error("Bitte email und passwort eingeben!");
       return;
     }
 
@@ -26,7 +27,7 @@ function SingUpUser() {
     });
 
     if (error) {
-      toast.error('Fehler beim einloggen!');
+      toast.error("Fehler beim einloggen!");
       console.log(error);
       return;
     }
@@ -35,24 +36,24 @@ function SingUpUser() {
     console.log(userId);
 
     const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', userId)
+      .from("profiles")
+      .select("role")
+      .eq("id", userId)
       .single();
 
     if (profileError || !profile) {
-      toast.error('Profil nicht gefunden!');
+      toast.error("Profil nicht gefunden!");
       return;
     }
 
     //role
 
-    if (profile.role === 'fahrer') {
-      navigate('/fahrer-dashboard');
-    } else if (profile.role === 'disponent') {
-      navigate('/disponent-dashboard');
+    if (profile.role === "fahrer") {
+      navigate("/fahrer-dashboard");
+    } else if (profile.role === "disponent") {
+      navigate("/disponent-dashboard");
     } else {
-      alert('Unbekannta Rolle!');
+      alert("Unbekannta Rolle!");
     }
   }
 
@@ -82,10 +83,7 @@ function SingUpUser() {
             </div>
 
             <div className="flex flex-col items-center gap-2.5">
-              <Button
-                onClick={LoginUser}
-                className="cursor-pointer"
-              >
+              <Button onClick={LoginUser} className="cursor-pointer">
                 Anmelden
               </Button>
               <p className="text-sm text-gray-600 flex flex-col items-center dark:text-white/50">
