@@ -1,10 +1,10 @@
 import { useState } from "react";
-import supabase from "../lib/supabaseClient";
+import supabase from "../../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import SingUpUser from "./LoginForm";
-import { Card } from "./ui/card";
+import { Card } from "../ui/card";
 import { toast } from "sonner";
 
 function RegisterForm() {
@@ -18,7 +18,7 @@ function RegisterForm() {
 
   const navigate = useNavigate();
 
-  async function RegisterForm() {
+  async function handleRegister() {
     if (
       !firstName ||
       !lastName ||
@@ -78,32 +78,36 @@ function RegisterForm() {
           <h2 className="text-xl ">Registrieren</h2>
           <div className="w-full flex flex-col gap-5">
             <div className="flex flex-col">
-              <p>Vorname</p>
+              <label htmlFor="firstName">Vorname</label>
               <Input
+                id="firstName"
                 type="text"
-                placeholder=""
+                value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
-              <p>Nachname</p>
+              <label htmlFor="lastName">Nachname</label>
               <Input
+                id="lastName"
                 type="text"
-                placeholder=""
+                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
-              <p>Dienst Nummer</p>
+              <label htmlFor="phoneNumber">Dienst Nummer</label>
               <Input
+                id="phoneNumber"
                 type="text"
-                placeholder=""
+                value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
-              <p>Email</p>
+              <label htmlFor="email">Email</label>
               <Input
+                id="email"
                 type="email"
                 placeholder="Email adresse"
                 value={email}
@@ -111,25 +115,30 @@ function RegisterForm() {
               />
             </div>
             <div className=" flex flex-col">
-              <p>Password</p>
+              <label htmlFor="password">Password</label>
               <Input
+                id="password"
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <select
-              className="border border-black/10 dark:bg-slate-900 dark:border-white/20 rounded-md p-2  focus:outline-none cursor-pointer"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="">Position auswählen</option>
-              <option value={"disponent"}>Disponent/in</option>
-              <option value={"fahrer"}> Fahrer/in</option>
-            </select>
+            <div className="flex flex-col">
+              <label htmlFor="role">Position</label>
+              <select
+                id="role"
+                className="border border-black/10 dark:bg-slate-900 dark:border-white/20 rounded-md p-2  focus:outline-none cursor-pointer"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                <option value="">Position auswählen</option>
+                <option value={"disponent"}>Disponent/in</option>
+                <option value={"fahrer"}> Fahrer/in</option>
+              </select>
+            </div>
             <div className="flex flex-col items-center gap-2.5">
-              <Button onClick={RegisterForm} className="cursor-pointer">
+              <Button onClick={handleRegister} className="cursor-pointer">
                 Registrieren
               </Button>
               <p className="flex flex-col  items-center text-sm text-gray-600 dark:text-white/50">

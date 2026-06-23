@@ -1,21 +1,20 @@
-
 import { useState } from "react";
-import supabase from "../lib/supabaseClient";
-import { useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import RegisterForm from "./RegisterForm";
 import { toast } from "sonner";
-import { Card } from "./ui/card";
+import { Card } from "../ui/card";
+import { useNavigate } from "react-router-dom";
+import supabase from "../../lib/supabaseClient";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import RegisterForm from "./RegisterForm";
 
-function SingUpUser() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
 
-  async function LoginUser() {
+  async function handleLogin() {
     if (!email || !password) {
       toast.error("Bitte email und passwort eingeben!");
       return;
@@ -28,12 +27,10 @@ function SingUpUser() {
 
     if (error) {
       toast.error("Fehler beim einloggen!");
-      console.log(error);
       return;
     }
 
     const userId = data.user?.id;
-    console.log(userId);
 
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
@@ -46,14 +43,12 @@ function SingUpUser() {
       return;
     }
 
-    //role
-
     if (profile.role === "fahrer") {
       navigate("/fahrer-dashboard");
     } else if (profile.role === "disponent") {
       navigate("/disponent-dashboard");
     } else {
-      alert("Unbekannta Rolle!");
+      toast.error("Unbekannte Rolle!");
     }
   }
 
@@ -64,8 +59,9 @@ function SingUpUser() {
           <h2>Anmelden</h2>
           <div className="w-full flex flex-col gap-5">
             <div className="flex flex-col w-full">
-              <p>Email</p>
+              <label htmlFor="email">Email</label>
               <Input
+                id="email"
                 type="email"
                 placeholder="Email adresse"
                 value={email}
@@ -73,8 +69,9 @@ function SingUpUser() {
               />
             </div>
             <div className="w-full flex flex-col">
-              <p>Password</p>
+              <label htmlFor="password">Password</label>
               <Input
+                id="password"
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -83,7 +80,7 @@ function SingUpUser() {
             </div>
 
             <div className="flex flex-col items-center gap-2.5">
-              <Button onClick={LoginUser} className="cursor-pointer">
+              <Button onClick={handleLogin} className="cursor-pointer">
                 Anmelden
               </Button>
               <p className="text-sm text-gray-600 flex flex-col items-center dark:text-white/50">
@@ -99,10 +96,10 @@ function SingUpUser() {
           </div>
         </Card>
       ) : (
-        <RegisterForm></RegisterForm>
+        <RegisterForm />
       )}
     </div>
   );
 }
 
-export default SingUpUser;
+export default LoginForm;
