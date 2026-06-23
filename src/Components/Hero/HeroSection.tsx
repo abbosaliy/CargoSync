@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Button } from '../ui/button';
-import SingUpUser from '../LoginForm';
-import ThemaToggle from '../ThemaToggle';
+import { useState } from "react";
+import { Button } from "../ui/button";
+import ThemaToggle from "../ThemaToggle";
+import LoginForm from "../auth/LoginForm";
 
 function HeroSection() {
   const [open, setOpen] = useState(false);
@@ -32,10 +32,7 @@ function HeroSection() {
                 Behalten Sie Ihre Lieferungen im Blick, verwalten Sie Fahrer
                 effizient und optimieren Sie Ihre Aufträge – alles an einem Ort.
               </p>
-              <Button
-                onClick={() => setOpen(true)}
-                className="cursor-pointer"
-              >
+              <Button onClick={() => setOpen(true)} className="cursor-pointer">
                 Jetzt Starten
               </Button>
             </div>
@@ -49,7 +46,7 @@ function HeroSection() {
           </>
         ) : (
           <div className="w-full flex justify-center items-center ">
-            <SingUpUser />
+            <LoginForm />
           </div>
         )}
       </div>
