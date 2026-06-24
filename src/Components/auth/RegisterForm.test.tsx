@@ -3,12 +3,11 @@ import userEvent from "@testing-library/user-event";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import RegisterForm from "./RegisterForm";
 
-// ─────────────────────────────────────────────────────────────
+
 // MOCKS
 // Die Tests müssen ohne Browser und ohne Server laufen. Deshalb
 // ersetzen wir externe Abhängigkeiten (Supabase, Router, Toast)
 // durch Fake-Versionen. Das macht die Tests schnell und isoliert.
-// ─────────────────────────────────────────────────────────────
 
 // Supabase-Mock: signUp und from() werden gefälscht
 const mockSignUp = vi.fn();
@@ -43,7 +42,7 @@ beforeEach(() => {
 });
 
 describe("RegisterForm", () => {
-  // ── TEST 1: Validierung ─────────────────────────────────────
+  //  TEST 1: Validierung
   // Bei leerem Formular soll eine Fehlermeldung erscheinen und
   // Supabase NICHT aufgerufen werden
   test("zeigt einen Fehler an und ruft Supabase nicht auf, wenn das Formular leer ist", async () => {
@@ -58,7 +57,7 @@ describe("RegisterForm", () => {
     expect(mockSignUp).not.toHaveBeenCalled();
   });
 
-  // ── TEST 2: Eingabefelder ───────────────────────────────────
+  // TEST 2: Eingabefelder
   // Beim Tippen soll der Wert korrekt im Feld gespeichert werden
   test("speichert den Wert, wenn in ein Eingabefeld geschrieben wird", async () => {
     const user = userEvent.setup();
@@ -70,7 +69,7 @@ describe("RegisterForm", () => {
     expect(vorname).toHaveValue("Abbos");
   });
 
-  // ── TEST 3: Rollenauswahl ───────────────────────────────────
+  //  TEST 3: Rollenauswahl
   // Beim Auswählen einer Rolle soll sich der Wert ändern
   test("wählt einen Wert aus dem Positions-Dropdown aus", async () => {
     const user = userEvent.setup();
@@ -82,7 +81,7 @@ describe("RegisterForm", () => {
     expect(roleSelect).toHaveValue("fahrer");
   });
 
-  // ── TEST 4: Vollständig ausgefülltes Formular ───────────────
+  // TEST 4: Vollständig ausgefülltes Formular 
   // Wenn alle Felder ausgefüllt sind, soll die Validierung
   // bestanden und Supabase signUp aufgerufen werden
   test("ruft Supabase signUp auf, wenn alle Felder ausgefüllt sind", async () => {
@@ -117,7 +116,7 @@ describe("RegisterForm", () => {
     expect(mockToastError).not.toHaveBeenCalled();
   });
 
-  // ── TEST 5: Ansicht wechseln ────────────────────────────────
+  //  TEST 5: Ansicht wechseln 
   // Beim Klick auf "Anmelden" soll das Login-Formular erscheinen
   test("zeigt das Login-Formular an, wenn auf Anmelden geklickt wird", async () => {
     const user = userEvent.setup();
