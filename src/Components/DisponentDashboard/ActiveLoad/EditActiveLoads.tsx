@@ -1,184 +1,104 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import supabase from '../../../lib/supabaseClient';
-import { toast } from 'sonner';
-import { Input } from '../../ui/input';
-import { Button } from '../../ui/button';
-import { ClipLoader } from 'react-spinners';
-
-type Load = {
-  id: number;
-  company_name: string | null;
-  sender_address: string | null;
-  pickup_date: string | null;
-  delivery_date: string | null;
-  delivery_address: string | null;
-  description: string | null;
-  cargo_type: string | null;
-  cargo_weight: string | null;
-};
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
+import supabase from "../../../lib/supabaseClient";
+import { Button } from "../../ui/button";
+import LoadFields, { type LoadFormValues } from "../../dashboard/LoadFields";
+import { LoadingState, PageHeader } from "../../dashboard/ui";
+import { primaryButton, secondaryButton } from "../../dashboard/styles";
 
 function EditLoads() {
-  const [value, setValue] = useState<Load | null>(null);
+  const [value, setValue] = useState<LoadFormValues | null>(null);
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
     if (!id) return;
 
-    async function fetschActiveLoads() {
+    async function fetchLoad() {
       const { data, error } = await supabase
-        .from('loads')
+        .from("loads")
         .select(
-          'id, company_name, sender_address, delivery_address, pickup_date, delivery_date, cargo_type, description, cargo_weight'
+          "company_name, sender_address, delivery_address, pickup_date, delivery_date, cargo_type, description, cargo_weight",
         )
-        .eq('id', Number(id))
+        .eq("id", Number(id))
         .single();
 
       if (error) {
-        toast.error('Etwas ist schief gelaufen');
+        toast.error("Etwas ist schief gelaufen");
       } else {
-        setValue(data);
+        // null-Werte aus der Datenbank werden zu leeren Strings für die Eingabefelder
+        setValue({
+          company_name: data.company_name ?? "",
+          sender_address: data.sender_address ?? "",
+          pickup_date: data.pickup_date ?? "",
+          delivery_address: data.delivery_address ?? "",
+          delivery_date: data.delivery_date ?? "",
+          cargo_type: data.cargo_type ?? "",
+          cargo_weight: data.cargo_weight ?? "",
+          description: data.description ?? "",
+        });
       }
     }
 
-    fetschActiveLoads();
+    fetchLoad();
   }, [id]);
 
-  async function hanleUpdate() {
-    if (
-      !value?.company_name ||
-      !value?.sender_address ||
-      !value?.pickup_date ||
-      !value?.delivery_address ||
-      !value?.delivery_date ||
-      !value?.cargo_weight ||
-      !value?.cargo_type ||
-      !value?.description
-    ) {
-      toast.error('Bitte alle Pflichtfelder ausfüllen!');
+  async function handleUpdate() {
+    if (!value || Object.values(value).some((field) => !field)) {
+      toast.error("Bitte alle Pflichtfelder ausfüllen!");
       return;
     }
 
     const { error } = await supabase
-      .from('loads')
+      .from("loads")
       .update(value)
-      .eq('id', value.id);
+      .eq("id", Number(id));
 
     if (error) {
-      toast.error('Etwas ist schief gelaufen!');
+      toast.error("Etwas ist schief gelaufen!");
     } else {
-      toast.success('Daten wurde erfolgreich gändert');
-      navigate(-1);
+      toast.success("Daten wurden erfolgreich geändert");
+      navigate("/disponent-dashboard/offene-aufträge");
     }
   }
 
-  if (!value)
-    return (
-      <div className="flex justify-center items-center h-full">
-        <ClipLoader
-          color="#3B82F6"
-          size={70}
-        />
-      </div>
-    );
+  if (!value) return <LoadingState />;
 
   return (
-    <div className="flex flex-col gap-10 md:pt-15 pb-10 xl:w-4xl ">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-1">
-          <p>Firmenname</p>
-          <Input
-            type="text"
-            value={value?.company_name ?? ''}
-            onChange={(e) =>
-              setValue({ ...value, company_name: e.target.value })
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p>Abhol Adresse</p>
-          <Input
-            type="text"
-            value={value?.sender_address ?? ''}
-            onChange={(e) =>
-              setValue({ ...value, sender_address: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-1">
-          <p>Abholdatum</p>
-          <Input
-            type="date"
-            value={value?.pickup_date ?? ''}
-            onChange={(e) =>
-              setValue({ ...value, pickup_date: e.target.value })
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p>Lieferung Adresse</p>
-          <Input
-            type="text"
-            value={value?.delivery_address ?? ''}
-            onChange={(e) =>
-              setValue({ ...value, delivery_address: e.target.value })
-            }
-          />
+    <>
+      <PageHeader
+        title="Auftrag bearbeiten"
+        description={`Auftrag #${id}`}
+        backTo="/disponent-dashboard/offene-aufträge"
+      />
+
+      <div className="flex flex-col gap-5">
+        <LoadFields
+          value={value}
+          onChange={(field, fieldValue) =>
+            setValue({ ...value, [field]: fieldValue })
+          }
+        />
+
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <Button
+            type="button"
+            onClick={() => navigate("/disponent-dashboard/offene-aufträge")}
+            className={secondaryButton}
+          >
+            Abbrechen
+          </Button>
+          <Button
+            type="button"
+            onClick={handleUpdate}
+            className={primaryButton}
+          >
+            Speichern
+          </Button>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-1">
-          <p>Lieferdatum</p>
-          <Input
-            type="date"
-            value={value?.delivery_date ?? ''}
-            onChange={(e) =>
-              setValue({ ...value, delivery_date: e.target.value })
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p>Ladung Gewicht (kg)</p>
-          <Input
-            type="text"
-            value={value?.cargo_weight ?? ''}
-            onChange={(e) =>
-              setValue({ ...value, cargo_weight: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-1">
-          <p>Ladungsart</p>
-          <Input
-            type="text"
-            value={value?.cargo_type ?? ''}
-            onChange={(e) => setValue({ ...value, cargo_type: e.target.value })}
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p>Besondere Hinweise</p>
-          <Input
-            type="text"
-            value={value?.description ?? ''}
-            onChange={(e) =>
-              setValue({ ...value, description: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <div className="md:w-50 "></div>
-      <Button
-        className="w-full md:w-50 cursor-pointer "
-        onClick={hanleUpdate}
-      >
-        Speichern
-      </Button>
-    </div>
+    </>
   );
 }
 

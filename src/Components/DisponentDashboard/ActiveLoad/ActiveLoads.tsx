@@ -1,36 +1,27 @@
-import { useEffect, useState } from 'react';
-import { Button } from '../../ui/button';
-import { Card } from '../../ui/card';
-import supabase from '../../../lib/supabaseClient';
-import { toast } from 'sonner';
-import { ClipLoader } from 'react-spinners';
-import { useNavigate } from 'react-router-dom';
-import { FaEdit } from 'react-icons/fa';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '../../ui/accordion';
-import { Tables } from '../../../types/database.types';
-import CustomAlertDialog from '../../ui/Dialog';
-
-type Load = Tables<'loads'> & { driver: Tables<'profiles'> | null };
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Pencil, Plus, Truck } from "lucide-react";
+import { toast } from "sonner";
+import supabase from "../../../lib/supabaseClient";
+import CustomAlertDialog from "../../ui/Dialog";
+import LoadCard, { type LoadWithDriver } from "../../dashboard/LoadCard";
+import { EmptyState, LoadingState, PageHeader } from "../../dashboard/ui";
+import { panel, primaryButton, secondaryButton } from "../../dashboard/styles";
+import { getLoadStatus } from "../../dashboard/loadStatus";
 
 function ActiveLoads() {
-  const [loads, setLoads] = useState<Load[]>([]);
+  const [loads, setLoads] = useState<LoadWithDriver[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetschDeliveredLoads() {
+    async function fetchActiveLoads() {
       const { data, error } = await supabase
-        .from('loads')
-        .select('*, driver:profiles!loads_driver_id_fkey( *)')
-        .eq('done', false);
+        .from("loads")
+        .select("*, driver:profiles!loads_driver_id_fkey( *)")
+        .eq("done", false);
 
       if (error) {
-        toast.error('Etwas ist schief gelaufen!');
+        toast.error("Etwas ist schief gelaufen!");
       } else if (data) {
         setLoads(data);
       }
@@ -38,212 +29,109 @@ function ActiveLoads() {
       setLoading(false);
     }
 
-    fetschDeliveredLoads();
+    fetchActiveLoads();
   }, []);
 
-  async function finishLoads(id: number) {
+  async function finishLoad(id: number) {
     const { error } = await supabase
-      .from('loads')
+      .from("loads")
       .update({ done: true })
-      .eq('id', id);
+      .eq("id", id);
 
     if (error) {
-      toast.error('Fehler beim Aktualisieren');
+      toast.error("Fehler beim Aktualisieren");
     } else {
-      toast.success('Ladung wurde abgeschlossen');
-      setLoads((load) => load.filter((load) => load.id !== id));
+      toast.success("Ladung wurde abgeschlossen");
+      setLoads((prev) => prev.filter((load) => load.id !== id));
     }
   }
 
-  if (loading)
-    return (
-      <div className="flex  items-center justify-center h-full w-full">
-        <ClipLoader
-          color="#3B82F6"
-          size={70}
-        />
-      </div>
-    );
+  if (loading) return <LoadingState />;
+
+  // Kleine Übersicht oben auf der Seite
+  const summary = [
+    { label: "Offene Aufträge", value: loads.length },
+    {
+      label: "Unterwegs",
+      value: loads.filter((l) =>
+        ["Beladen", "Unterwegs", "Entladen"].includes(getLoadStatus(l)),
+      ).length,
+    },
+    {
+      label: "Zugestellt",
+      value: loads.filter((l) => getLoadStatus(l) === "Zugestellt").length,
+    },
+  ];
+
+  const newOrderButton = (
+    <Link
+      to="/disponent-dashboard/auftrag-erstellen"
+      className={`${primaryButton} inline-flex items-center justify-center gap-2`}
+    >
+      <Plus className="h-4 w-4" />
+      Neuer Auftrag
+    </Link>
+  );
 
   return (
-    <div className="flex flex-col gap-5 md:pt-15 w-full h-full">
+    <>
+      <PageHeader
+        title="Offene Aufträge"
+        description="Alle Aufträge, die noch nicht abgeschlossen sind."
+        action={newOrderButton}
+      />
+
       {loads.length === 0 ? (
-        <div className="flex items-center justify-center h-full w-full">
-          <p className=" text-black/50 text-3xl  text-center dark:text-white/50">
-            Aktuell sind keine offenen Aufträge vorhanden.
-          </p>
-        </div>
+        <EmptyState
+          icon={<Truck className="h-7 w-7" />}
+          title="Keine offenen Aufträge"
+          text="Erstelle einen neuen Auftrag und weise ihn einem Fahrer zu."
+          action={newOrderButton}
+        />
       ) : (
-        loads.map((index) => (
-          <Card
-            key={index.id}
-            className="dark:bg-slate-900 md:w-[80%] flex flex-col  shadow-md p-4 pl-10 hover:shadow-lg transition "
-          >
-            <div className="flex flex-wrap justify-between gap-10">
-              <div className="md:w-[80%] flex gap-20 ">
-                <div className="flex lg:w-[35%]  flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-black/50 text-sm dark:text-white/50">
-                      Firmen Name:
-                    </span>
-                    <p>{index.company_name}</p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-black/50 text-sm dark:text-white/50">
-                      Abhol Andesse
-                    </span>
-                    <p>{index.sender_address}</p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-black/50 text-sm dark:text-white/50">
-                      Abholtermin
-                    </span>
-                    <p>{index.pickup_date}</p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="text-black/50 text-sm dark:text-white/50">
-                      Zusatzinformationen
-                    </span>
-                    <p>{index.description}</p>
-                  </div>
-                </div>
-                <div className="flex  flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-black/50 text-sm dark:text-white/50">
-                      Lieferadresse
-                    </span>
-                    <p>{index.delivery_address}</p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-black/50 text-sm dark:text-white/50">
-                      Liefertermin
-                    </span>
-                    <p>{index.delivery_date}</p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-black/50 text-sm dark:text-white/50">
-                      Frachtart
-                    </span>
-                    <p>{index.cargo_type}</p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="text-black/50 text-sm dark:text-white/50">
-                      Gewicht
-                    </span>
-                    <p>{index.cargo_weight}</p>
-                  </div>
-                </div>
+        <>
+          <div className="mb-6 grid grid-cols-3 gap-3 sm:gap-4">
+            {summary.map((item) => (
+              <div key={item.label} className={`${panel} p-4`}>
+                <p className="text-xs text-slate-500 sm:text-sm dark:text-slate-400">
+                  {item.label}
+                </p>
+                <p className="mt-1 text-2xl font-bold text-slate-900 tabular-nums dark:text-white">
+                  {item.value}
+                </p>
               </div>
-              <div className="flex">
-                <Button
-                  onClick={() =>
-                    navigate(
-                      `/disponent-dashboard/offene-aufträge/bearbeiten/${index.id}`
-                    )
-                  }
-                  className="cursor-pointer "
-                >
-                  <FaEdit />
-                </Button>
-              </div>
-            </div>
-            <div className="flex   gap-3">
-              <p className="flex gap-2">
-                <span className="text-black/50 dark:text-white/50">
-                  Fahrer:
-                </span>
-                {index.driver!.firstName}
-              </p>
-              <p> {index.driver!.lastName}</p>
-            </div>
-            <Accordion
-              type="single"
-              collapsible
-              className="w-[80%]"
-            >
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-md cursor-pointer ">
-                  Status Ansehen
-                </AccordionTrigger>
-                <AccordionContent className="flex flex-wrap gap-5">
-                  <p className="flex gap-2 ">
-                    <span className="text-black/50 dark:text-white/50">
-                      Beladen:
-                    </span>
+            ))}
+          </div>
 
-                    {index.loaded_at
-                      ? new Date(index.loaded_at).toLocaleString('de-De', {
-                          timeZone: 'Europe/Berlin',
-                          year: 'numeric',
-                          month: '2-digit',
-                          day: '2-digit',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })
-                      : 'Noch nicht gesetzt'}
-                  </p>
-                  <p className="flex gap-2">
-                    <span className="text-black/50 dark:text-white/60">
-                      Unterwegs:
-                    </span>
-                    {index.onroad_at
-                      ? new Date(index.onroad_at).toLocaleString('de-De', {
-                          timeZone: 'Europe/Berlin',
-                          year: 'numeric',
-                          month: '2-digit',
-                          day: '2-digit',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })
-                      : 'Noch nicht gesetzt'}
-                  </p>
-                  <p className="flex gap-2">
-                    <span className="text-black/50 dark:text-white/60">
-                      Entladen:
-                    </span>
-                    {index.unloaded_at
-                      ? new Date(index.unloaded_at).toLocaleString('de-De', {
-                          timeZone: 'Europe/Berlin',
-                          year: 'numeric',
-                          month: '2-digit',
-                          day: '2-digit',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })
-                      : 'Noch nicht gesetzt'}
-                  </p>
-                  <p className="flex gap-2">
-                    <span className="text-black/50 dark:text-white/60">
-                      Zugestellt:
-                    </span>
-                    {index.delivered_at
-                      ? new Date(index.delivered_at).toLocaleString('de-De', {
-                          timeZone: 'Europe/Berlin',
-                          year: 'numeric',
-                          month: '2-digit',
-                          day: '2-digit',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })
-                      : 'Nocht nicht gesetzt'}
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            <div>
-              <CustomAlertDialog
-                className="cursor-pointer"
-                title="Ladung bestätigen"
-                description="Möchtest du diese Ladung wirklich abschließen? Dieser Vorgang kann nicht rückgängig gemacht werden."
-                buttonName="Abschließen"
-                onConfirm={() => finishLoads(index.id)}
+          <div className="flex flex-col gap-5">
+            {loads.map((load) => (
+              <LoadCard
+                key={load.id}
+                load={load}
+                actions={
+                  <>
+                    <Link
+                      to={`/disponent-dashboard/offene-aufträge/bearbeiten/${load.id}`}
+                      className={`${secondaryButton} inline-flex items-center justify-center gap-2`}
+                    >
+                      <Pencil className="h-4 w-4" />
+                      Bearbeiten
+                    </Link>
+                    <CustomAlertDialog
+                      title="Ladung abschließen"
+                      description="Möchtest du diese Ladung wirklich abschließen? Dieser Vorgang kann nicht rückgängig gemacht werden."
+                      buttonName="Abschließen"
+                      onConfirm={() => finishLoad(load.id)}
+                      className={primaryButton}
+                    />
+                  </>
+                }
               />
-            </div>
-          </Card>
-        ))
+            ))}
+          </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
 

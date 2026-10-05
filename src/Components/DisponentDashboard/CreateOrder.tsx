@@ -1,22 +1,34 @@
-import { useState } from 'react';
-import { Button } from '../ui/button';
-import CustomSelct from '../ui/customSelect';
-import { Input } from '../ui/input';
-import supabase from '../../lib/supabaseClient';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { UserRound } from "lucide-react";
+import { toast } from "sonner";
+import supabase from "../../lib/supabaseClient";
+import { Button } from "../ui/button";
+import CustomSelct from "../ui/customSelect";
+import LoadFields, {
+  Section,
+  type LoadFormValues,
+} from "../dashboard/LoadFields";
+import { PageHeader } from "../dashboard/ui";
+import {
+  fieldLabel,
+  primaryButton,
+  secondaryButton,
+} from "../dashboard/styles";
+
+const emptyOrder: LoadFormValues & { driver_id: string } = {
+  company_name: "",
+  sender_address: "",
+  pickup_date: "",
+  delivery_address: "",
+  delivery_date: "",
+  cargo_type: "",
+  description: "",
+  cargo_weight: "",
+  driver_id: "",
+};
 
 function CreateOrder() {
-  const [value, setValue] = useState({
-    company_name: '',
-    sender_address: '',
-    pickup_date: '',
-    delivery_address: '',
-    delivery_date: '',
-    cargo_type: '',
-    description: '',
-    cargo_weight: '',
-    driver_id: '',
-  });
+  const [value, setValue] = useState(emptyOrder);
 
   async function handleSend() {
     if (
@@ -30,7 +42,7 @@ function CreateOrder() {
       !value.cargo_weight ||
       !value.driver_id
     ) {
-      toast.error('Bitte alle Pflichtfelder ausfüllen!');
+      toast.error("Bitte alle Pflichtfelder ausfüllen!");
       return;
     }
 
@@ -40,150 +52,64 @@ function CreateOrder() {
     } = await supabase.auth.getUser();
 
     if (userError || !user) {
-      toast.error('Etwas ist schief gelaufen!');
+      toast.error("Etwas ist schief gelaufen!");
       return;
     }
 
-    const { error } = await supabase.from('loads').insert([
-      {
-        company_name: value.company_name,
-        sender_address: value.sender_address,
-        pickup_date: value.pickup_date,
-        delivery_address: value.delivery_address,
-        delivery_date: value.delivery_date,
-        cargo_type: value.cargo_type,
-        description: value.description,
-        cargo_weight: value.cargo_weight,
-        driver_id: value.driver_id,
-        disponent_id: user.id,
-      },
-    ]);
+    const { error } = await supabase
+      .from("loads")
+      .insert([{ ...value, disponent_id: user.id }]);
 
     if (error) {
-      console.log(error);
-      toast.error('Etwas ist schief gelaufen!');
+      toast.error("Etwas ist schief gelaufen!");
     } else {
-      toast.success('Die Ladung wurde erfolgreich erstellt');
-      setValue({
-        company_name: '',
-        sender_address: '',
-        pickup_date: '',
-        delivery_address: '',
-        delivery_date: '',
-        cargo_type: '',
-        description: '',
-        cargo_weight: '',
-        driver_id: '',
-      });
+      toast.success("Die Ladung wurde erfolgreich erstellt");
+      setValue(emptyOrder);
     }
   }
 
   return (
-    <div className="dark:bg-slate-900 flex flex-col gap-10 md:pt-15 pb-10 xl:w-4xl bg-gray-50 ">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-1">
-          <p>Firmenname</p>
-          <Input
-            type="text"
-            value={value.company_name}
-            onChange={(e) =>
-              setValue({ ...value, company_name: e.target.value })
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p>Abhol Adresse</p>
-          <Input
-            type="text"
-            value={value.sender_address}
-            onChange={(e) =>
-              setValue({ ...value, sender_address: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-1">
-          <p>Abholdatum</p>
-          <Input
-            type="date"
-            value={value.pickup_date}
-            onChange={(e) =>
-              setValue({ ...value, pickup_date: e.target.value })
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p>Lieferung Adresse</p>
-          <Input
-            type="text"
-            value={value.delivery_address}
-            onChange={(e) =>
-              setValue({ ...value, delivery_address: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-1">
-          <p>Lieferdatum</p>
-          <Input
-            type="date"
-            value={value.delivery_date}
-            onChange={(e) =>
-              setValue({ ...value, delivery_date: e.target.value })
-            }
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p>Ladung Gewicht (kg)</p>
-          <Input
-            type="text"
-            value={value.cargo_weight}
-            onChange={(e) =>
-              setValue({ ...value, cargo_weight: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col gap-1">
-          <p>Ladungsart</p>
-          <Input
-            type="text"
-            value={value.cargo_type}
-            onChange={(e) => setValue({ ...value, cargo_type: e.target.value })}
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <p>Besondere Hinweise</p>
-          <Input
-            type="text"
-            value={value.description}
-            onChange={(e) =>
-              setValue({ ...value, description: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <div className="md:w-50 ">
-        <CustomSelct
-          value={value.driver_id}
-          onSelect={(id) =>
-            setValue({
-              ...value,
-              driver_id: id,
-            })
+    <>
+      <PageHeader
+        title="Auftrag erstellen"
+        description="Erfasse die Daten der Ladung und weise sie einem Fahrer zu."
+      />
+
+      <div className="flex flex-col gap-5">
+        <LoadFields
+          value={value}
+          onChange={(field, fieldValue) =>
+            setValue({ ...value, [field]: fieldValue })
           }
-        ></CustomSelct>
+        />
+
+        <Section icon={<UserRound className="h-4 w-4" />} title="Fahrer">
+          <div className="flex flex-col sm:col-span-2">
+            <label htmlFor="driver" className={fieldLabel}>
+              Fahrer zuweisen
+            </label>
+            <CustomSelct
+              id="driver"
+              value={value.driver_id}
+              onSelect={(id) => setValue({ ...value, driver_id: id })}
+            />
+          </div>
+        </Section>
+
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <Button
+            type="button"
+            onClick={() => setValue(emptyOrder)}
+            className={secondaryButton}
+          >
+            Zurücksetzen
+          </Button>
+          <Button type="button" onClick={handleSend} className={primaryButton}>
+            Auftrag erstellen
+          </Button>
+        </div>
       </div>
-      <Button
-        onClick={handleSend}
-        className="w-full md:w-50  cursor-pointer"
-      >
-        Senden
-      </Button>
-    </div>
+    </>
   );
 }
 

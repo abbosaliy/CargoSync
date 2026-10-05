@@ -1,10 +1,17 @@
-import { useEffect, useState } from 'react';
-import supabase from '../../lib/supabaseClient';
-import { toast } from 'sonner';
-import { ClipLoader } from 'react-spinners';
-import { Card } from '../ui/card';
-import { Button } from '../ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, CalendarDays, PackageOpen } from "lucide-react";
+import { toast } from "sonner";
+import supabase from "../../lib/supabaseClient";
+import {
+  EmptyState,
+  LoadingState,
+  PageHeader,
+  RouteLine,
+  StatusBadge,
+} from "../dashboard/ui";
+import { panel, primaryButton } from "../dashboard/styles";
+import { formatDate } from "../dashboard/loadStatus";
 
 type Load = {
   id: number;
@@ -13,16 +20,18 @@ type Load = {
   pickup_date: string | null;
   delivery_date: string | null;
   delivery_address: string | null;
+  loaded_at: string | null;
+  onroad_at: string | null;
+  unloaded_at: string | null;
   delivered_at: string | null;
 };
 
 function LoadListe() {
   const [loads, setLoads] = useState<Load[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetschProfile() {
+    async function fetchLoads() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -30,15 +39,15 @@ function LoadListe() {
       if (!user) return;
 
       const { data, error } = await supabase
-        .from('loads')
+        .from("loads")
         .select(
-          'id, company_name, delivery_address, delivery_date, sender_address, pickup_date, delivered_at '
+          "id, company_name, sender_address, pickup_date, delivery_address, delivery_date, loaded_at, onroad_at, unloaded_at, delivered_at",
         )
-        .eq('driver_id', user.id)
-        .is('delivered_at', null);
+        .eq("driver_id", user.id)
+        .is("delivered_at", null);
 
       if (error) {
-        toast.error('Etwas ist schief gelaufen!');
+        toast.error("Etwas ist schief gelaufen!");
       } else {
         setLoads(data);
       }
@@ -46,57 +55,77 @@ function LoadListe() {
       setLoading(false);
     }
 
-    fetschProfile();
+    fetchLoads();
   }, []);
 
-  if (loading)
-    return (
-      <div className="flex  items-center justify-center h-full w-full">
-        <ClipLoader
-          color="#3B82F6"
-          size={70}
-        />
-      </div>
-    );
+  if (loading) return <LoadingState />;
+
   return (
-    <div className="flex h-full w-full flex-col gap-5">
+    <>
+      <PageHeader
+        title="Meine Aufträge"
+        description={
+          loads.length === 1
+            ? "1 offener Auftrag wartet auf dich."
+            : `${loads.length} offene Aufträge warten auf dich.`
+        }
+      />
+
       {loads.length === 0 ? (
-        <div className="flex items-center justify-center h-full w-full">
-          <p className=" text-black/50 text-3xl  text-center dark:text-white/50">
-            Aktuell sind keine Aufträge vorhanden.
-          </p>
-        </div>
+        <EmptyState
+          icon={<PackageOpen className="h-7 w-7" />}
+          title="Keine offenen Aufträge"
+          text="Sobald dein Disponent dir einen Auftrag zuweist, erscheint er hier."
+        />
       ) : (
-        loads.map((load) => (
-          <Card
-            key={load.id}
-            className="dark:bg-slate-900 flex flex-col w-full max-w-5xl shadow-md p-4 pl-10 hover:shadow-lg transition"
-          >
-            <div className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold">{load.company_name}</h2>
-              <p className="text-md ">
-                <span className="dark:text-white/50">Abholadresse: </span>{' '}
-                {load.sender_address}
-              </p>
-              <p className="text-md ">
-                <span className="dark:text-white/50">Lieferadresse: </span>
-                {load.delivery_address}
-              </p>
-              <p className="text-md ">
-                <span className="dark:text-white/50">Lieferdatum: </span>
-                {load.delivery_date}
-              </p>
-            </div>
-            <Button
-              className="md:w-sm cursor-pointer"
-              onClick={() => navigate(`/fahrer-dashboard/auftrage/${load.id}`)}
+        <div className="grid gap-5 md:grid-cols-2">
+          {loads.map((load) => (
+            <article
+              key={load.id}
+              className={`${panel} flex flex-col p-5 sm:p-6`}
             >
-              Auftrag Starten
-            </Button>
-          </Card>
-        ))
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Auftrag #{load.id}
+                  </p>
+                  <h2 className="truncate text-lg font-semibold text-slate-900 dark:text-white">
+                    {load.company_name}
+                  </h2>
+                </div>
+                <StatusBadge load={load} />
+              </div>
+
+              <div className="mt-5">
+                <RouteLine
+                  from={load.sender_address}
+                  to={load.delivery_address}
+                />
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 border-t border-slate-100 pt-4 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <CalendarDays className="h-4 w-4" />
+                  Abholung {formatDate(load.pickup_date)}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CalendarDays className="h-4 w-4" />
+                  Lieferung {formatDate(load.delivery_date)}
+                </span>
+              </div>
+
+              <Link
+                to={`/fahrer-dashboard/auftrage/${load.id}`}
+                className={`${primaryButton} mt-5 inline-flex items-center justify-center gap-2`}
+              >
+                {load.loaded_at ? "Auftrag fortsetzen" : "Auftrag starten"}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </article>
+          ))}
+        </div>
       )}
-    </div>
+    </>
   );
 }
 

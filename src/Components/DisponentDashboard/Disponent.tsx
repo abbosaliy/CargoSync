@@ -1,14 +1,32 @@
-import { Outlet } from 'react-router-dom';
-import SidebarDiponenten from './SeidebarDisponent';
+import {
+  CircleCheckBig,
+  ClipboardPlus,
+  Info,
+  Truck,
+  UserRound,
+} from "lucide-react";
+import DashboardLayout, { type NavItem } from "../dashboard/DashboardLayout";
+
+const navItems: NavItem[] = [
+  { to: "auftrag-erstellen", label: "Auftrag erstellen", icon: ClipboardPlus },
+  { to: "offene-aufträge", label: "Offene Aufträge", icon: Truck },
+  {
+    to: "erledigkte-aufträge",
+    label: "Erledigte Aufträge",
+    icon: CircleCheckBig,
+  },
+  { to: "personliche-data", label: "Persönliche Info", icon: UserRound },
+  { to: "uber-app", label: "Über die App", icon: Info },
+];
 
 function Disponent() {
   return (
-    <div className="dark:bg-slate-900 duration-300 flex  flex-col h-screen md:flex-row bg-gray-50  p-4 gap-10">
-      <SidebarDiponenten />
-      <div className=" w-full h-full overflow-y-auto">
-        <Outlet></Outlet>
-      </div>
-    </div>
+    <DashboardLayout
+      navItems={navItems}
+      roleLabel="Disponent"
+      homePath="/disponent-dashboard"
+    />
   );
 }
+
 export default Disponent;
