@@ -1,36 +1,45 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css';
-import Driver from './Components/DriverDashboard/Driver';
-import Disponent from './Components/DisponentDashboard/Disponent';
-import CreateOrder from './Components/DisponentDashboard/CreateOrder';
-import ProfileData from './Components/DisponentDashboard/Profile/ProfilesData';
-import UberApp from './Components/UberApp/UberApp';
-import EditProfile from './Components/DisponentDashboard/Profile/EditProfile';
-import { Toaster } from 'sonner';
-import ProfilesInfo from './Components/DriverDashboard/Profile/ProfilesInfo';
-import EditProfilesInfo from './Components/DriverDashboard/Profile/EditProfilesInfo';
-import CompletedLoads from './Components/DisponentDashboard/CompletedLoads';
-import ActiveLoads from './Components/DisponentDashboard/ActiveLoad/ActiveLoads';
-import LoadListe from './Components/DriverDashboard/LoadListe';
-import LoadDetails from './Components/DriverDashboard/LoadDetails';
-import EditLoads from './Components/DisponentDashboard/ActiveLoad/EditActiveLoads';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
+import Driver from "./Components/DriverDashboard/Driver";
+import Disponent from "./Components/DisponentDashboard/Disponent";
+import CreateOrder from "./Components/DisponentDashboard/CreateOrder";
+import ProfileData from "./Components/DisponentDashboard/Profile/ProfilesData";
+import UberApp from "./Components/UberApp/UberApp";
+import EditProfile from "./Components/DisponentDashboard/Profile/EditProfile";
+import { Toaster } from "sonner";
+import ProfilesInfo from "./Components/DriverDashboard/Profile/ProfilesInfo";
+import EditProfilesInfo from "./Components/DriverDashboard/Profile/EditProfilesInfo";
+import CompletedLoads from "./Components/DisponentDashboard/CompletedLoads";
+import ActiveLoads from "./Components/DisponentDashboard/ActiveLoad/ActiveLoads";
+import LoadListe from "./Components/DriverDashboard/LoadListe";
+import LoadDetails from "./Components/DriverDashboard/LoadDetails";
+import EditLoads from "./Components/DisponentDashboard/ActiveLoad/EditActiveLoads";
 
-import Rooute from './Components/routes/Root';
-import HeroSection from './Components/Hero/HeroSection';
+import Rooute from "./Components/routes/Root";
+import HomePage from "./Components/Home/HomePage";
+import AuthPage from "./Components/auth/AuthPage";
 
 function App() {
   const router = createBrowserRouter(
     [
       {
-        path: '/',
+        path: "/",
         element: <Rooute />,
         children: [
           {
             index: true,
-            element: <HeroSection />,
+            element: <HomePage />,
           },
           {
-            path: 'fahrer-dashboard',
+            path: "anmelden",
+            element: <AuthPage mode="login" />,
+          },
+          {
+            path: "registrieren",
+            element: <AuthPage mode="register" />,
+          },
+          {
+            path: "fahrer-dashboard",
             element: <Driver />,
             children: [
               {
@@ -38,32 +47,32 @@ function App() {
                 element: <LoadListe />,
               },
               {
-                path: 'auftrage',
+                path: "auftrage",
                 element: <LoadListe />,
               },
-              { path: 'auftrage/:id', element: <LoadDetails /> },
+              { path: "auftrage/:id", element: <LoadDetails /> },
               {
-                path: 'personliche-info',
+                path: "personliche-info",
                 children: [
                   {
                     index: true,
                     element: <ProfilesInfo />,
                   },
                   {
-                    path: 'bearbeiten',
+                    path: "bearbeiten",
                     element: <EditProfilesInfo />,
                   },
                 ],
               },
 
               {
-                path: 'uber-app',
+                path: "uber-app",
                 element: <UberApp />,
               },
             ],
           },
           {
-            path: 'disponent-dashboard',
+            path: "disponent-dashboard",
             element: <Disponent />,
             children: [
               {
@@ -72,41 +81,41 @@ function App() {
               },
               {
                 index: true,
-                path: 'auftrag-erstellen',
+                path: "auftrag-erstellen",
                 element: <CreateOrder />,
               },
               {
-                path: 'offene-aufträge',
+                path: "offene-aufträge",
                 children: [
                   {
                     index: true,
                     element: <ActiveLoads />,
                   },
                   {
-                    path: 'bearbeiten/:id',
+                    path: "bearbeiten/:id",
                     element: <EditLoads />,
                   },
                 ],
               },
               {
-                path: 'erledigkte-aufträge',
+                path: "erledigkte-aufträge",
                 element: <CompletedLoads />,
               },
               {
-                path: 'personliche-data',
+                path: "personliche-data",
                 children: [
                   {
                     index: true,
                     element: <ProfileData />,
                   },
                   {
-                    path: 'bearbeiten',
+                    path: "bearbeiten",
                     element: <EditProfile />,
                   },
                 ],
               },
               {
-                path: 'uber-app',
+                path: "uber-app",
                 element: <UberApp />,
               },
             ],
@@ -115,16 +124,13 @@ function App() {
       },
     ],
     {
-      basename: '/',
+      basename: "/",
     },
   );
   return (
     <>
       <RouterProvider router={router} />
-      <Toaster
-        position="bottom-right"
-        richColors
-      />
+      <Toaster position="bottom-right" richColors />
     </>
   );
 }

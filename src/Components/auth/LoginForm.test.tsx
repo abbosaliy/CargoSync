@@ -3,7 +3,6 @@ import userEvent from "@testing-library/user-event";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import LoginForm from "./LoginForm";
 
-
 // MOCKS
 // Externe Abhängigkeiten werden durch Fake-Versionen ersetzt,
 // damit die Tests ohne Browser und ohne echten Server laufen.
@@ -49,7 +48,7 @@ beforeEach(() => {
 });
 
 describe("LoginForm (SingUpUser)", () => {
-  // TEST 1: Validierung 
+  // TEST 1: Validierung
   // Bei leerem Formular soll ein Fehler erscheinen und kein Login erfolgen
   test("zeigt einen Fehler an und meldet sich nicht an, wenn Felder leer sind", async () => {
     const user = userEvent.setup();
@@ -74,7 +73,7 @@ describe("LoginForm (SingUpUser)", () => {
     expect(email).toHaveValue("abbos@example.com");
   });
 
-  //  TEST 3: Erfolgreicher Login 
+  //  TEST 3: Erfolgreicher Login
   // Bei gültigen Daten soll signInWithPassword mit den richtigen
   // Argumenten aufgerufen werden
   test("ruft signInWithPassword auf, wenn Email und Passwort eingegeben sind", async () => {
@@ -126,7 +125,7 @@ describe("LoginForm (SingUpUser)", () => {
     });
   });
 
-  // TEST 5: Fehlerhafter Login 
+  // TEST 5: Fehlerhafter Login
   // Wenn Supabase einen Fehler zurückgibt, soll eine Fehlermeldung
   // erscheinen und keine Navigation stattfinden
   test("zeigt einen Fehler an, wenn die Anmeldung fehlschlägt", async () => {
@@ -148,13 +147,13 @@ describe("LoginForm (SingUpUser)", () => {
     expect(mockNavigate).not.toHaveBeenCalled();
   });
 
-  // TEST 6: Ansicht wechseln 
+  // TEST 6: Ansicht wechseln
   // Beim Klick auf "Registerieren" soll das Registrierungsformular erscheinen
-  test("zeigt das Registrierungs-Formular an, wenn auf Registerieren geklickt wird", async () => {
+  test("zeigt das Registrierungs-Formular an, wenn auf Registrieren geklickt wird", async () => {
     const user = userEvent.setup();
     render(<LoginForm />);
 
-    await user.click(screen.getByText("Registerieren"));
+    await user.click(screen.getByText("Registrieren"));
 
     expect(screen.getByText("Registrierungs-Formular")).toBeInTheDocument();
   });

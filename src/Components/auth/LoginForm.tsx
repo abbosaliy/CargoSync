@@ -6,11 +6,26 @@ import supabase from "../../lib/supabaseClient";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import RegisterForm from "./RegisterForm";
+import {
+  authCard,
+  authInput,
+  authLabel,
+  authSubmit,
+  authSubtitle,
+  authSwitchLink,
+  authSwitchText,
+  authTitle,
+} from "./authStyles";
+import { PasswordInput } from "../ui/passwort-input";
+type LoginFormProps = {
+  /** "register" öffnet direkt das Registrierungsformular */
+  defaultMode?: "login" | "register";
+};
 
-function LoginForm() {
+function LoginForm({ defaultMode = "login" }: LoginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultMode === "register");
 
   const navigate = useNavigate();
 
@@ -53,47 +68,58 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex w-full justify-center">
       {!open ? (
-        <Card className="dark:bg-slate-900  h-auto w-[350px] p-5 gap-15 flex flex-col items-center shadow-md ">
-          <h2>Anmelden</h2>
-          <div className="w-full flex flex-col gap-5">
-            <div className="flex flex-col w-full">
-              <label htmlFor="email">Email</label>
+        <Card className={authCard}>
+          <div>
+            <h2 className={authTitle}>Anmelden</h2>
+            <p className={authSubtitle}>
+              Willkommen zurück! Melde dich mit deinem Konto an.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col">
+              <label htmlFor="email" className={authLabel}>
+                Email
+              </label>
               <Input
                 id="email"
                 type="email"
-                placeholder="Email adresse"
+                placeholder="name@firma.de"
+                className={authInput}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="w-full flex flex-col">
-              <label htmlFor="password">Password</label>
-              <Input
+            <div className="flex flex-col">
+              <label htmlFor="password" className={authLabel}>
+                Password
+              </label>
+              <PasswordInput
                 id="password"
-                type="password"
-                placeholder="Password"
+                placeholder="••••••••"
+                className={authInput}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
-            <div className="flex flex-col items-center gap-2.5">
-              <Button onClick={handleLogin} className="cursor-pointer">
-                Anmelden
-              </Button>
-              <p className="text-sm text-gray-600 flex flex-col items-center dark:text-white/50">
-                Noch kein Konto?
-                <span
-                  onClick={() => setOpen(true)}
-                  className="text-blue-600 cursor-pointer hover:underline"
-                >
-                  Registerieren
-                </span>
-              </p>
-            </div>
           </div>
+
+          <Button onClick={handleLogin} className={authSubmit}>
+            Anmelden
+          </Button>
+
+          <p className={authSwitchText}>
+            Noch kein Konto?{" "}
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className={authSwitchLink}
+            >
+              Registrieren
+            </button>
+          </p>
         </Card>
       ) : (
         <RegisterForm />

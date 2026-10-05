@@ -7,6 +7,19 @@ import SingUpUser from "./LoginForm";
 import { Card } from "../ui/card";
 import { toast } from "sonner";
 
+import {
+  authCard,
+  authInput,
+  authLabel,
+  authSelect,
+  authSubmit,
+  authSubtitle,
+  authSwitchLink,
+  authSwitchText,
+  authTitle,
+} from "./authStyles";
+import { PasswordInput } from "../ui/passwort-input";
+
 function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -72,86 +85,111 @@ function RegisterForm() {
   }
 
   return (
-    <div className="dark:bg-slate-900 flex  items-center justify-center">
+    <div className="flex w-full justify-center">
       {!open ? (
-        <Card className="dark:bg-slate-900 h-auto w-[350px] p-5 gap-15 border  flex flex-col items-center shadow-md ">
-          <h2 className="text-xl ">Registrieren</h2>
-          <div className="w-full flex flex-col gap-5">
-            <div className="flex flex-col">
-              <label htmlFor="firstName">Vorname</label>
-              <Input
-                id="firstName"
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
+        <Card className={authCard}>
+          <div>
+            <h2 className={authTitle}>Registrieren</h2>
+            <p className={authSubtitle}>
+              Erstelle dein Konto und wähle deine Rolle.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="flex flex-col">
+                <label htmlFor="firstName" className={authLabel}>
+                  Vorname
+                </label>
+                <Input
+                  id="firstName"
+                  type="text"
+                  className={authInput}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="lastName" className={authLabel}>
+                  Nachname
+                </label>
+                <Input
+                  id="lastName"
+                  type="text"
+                  className={authInput}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
             </div>
             <div className="flex flex-col">
-              <label htmlFor="lastName">Nachname</label>
-              <Input
-                id="lastName"
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="phoneNumber">Dienst Nummer</label>
+              <label htmlFor="phoneNumber" className={authLabel}>
+                Dienst Nummer
+              </label>
               <Input
                 id="phoneNumber"
                 type="text"
+                className={authInput}
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className={authLabel}>
+                Email
+              </label>
               <Input
                 id="email"
                 type="email"
-                placeholder="Email adresse"
+                placeholder="name@firma.de"
+                className={authInput}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className=" flex flex-col">
-              <label htmlFor="password">Password</label>
-              <Input
+            <div className="flex flex-col">
+              <label htmlFor="password" className={authLabel}>
+                Password
+              </label>
+              <PasswordInput
                 id="password"
-                type="password"
-                placeholder="Password"
+                placeholder="••••••••"
+                className={authInput}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="role">Position</label>
+              <label htmlFor="role" className={authLabel}>
+                Position
+              </label>
               <select
                 id="role"
-                className="border border-black/10 dark:bg-slate-900 dark:border-white/20 rounded-md p-2  focus:outline-none cursor-pointer"
+                className={authSelect}
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
               >
                 <option value="">Position auswählen</option>
                 <option value={"disponent"}>Disponent/in</option>
-                <option value={"fahrer"}> Fahrer/in</option>
+                <option value={"fahrer"}>Fahrer/in</option>
               </select>
             </div>
-            <div className="flex flex-col items-center gap-2.5">
-              <Button onClick={handleRegister} className="cursor-pointer">
-                Registrieren
-              </Button>
-              <p className="flex flex-col  items-center text-sm text-gray-600 dark:text-white/50">
-                Hast du schon ein Konto?
-                <span
-                  onClick={() => setOpen(true)}
-                  className="text-blue-600 cursor-pointer hover:underline"
-                >
-                  Anmelden
-                </span>
-              </p>
-            </div>
           </div>
+
+          <Button onClick={handleRegister} className={authSubmit}>
+            Registrieren
+          </Button>
+
+          <p className={authSwitchText}>
+            Hast du schon ein Konto?{" "}
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className={authSwitchLink}
+            >
+              Anmelden
+            </button>
+          </p>
         </Card>
       ) : (
         <SingUpUser></SingUpUser>
